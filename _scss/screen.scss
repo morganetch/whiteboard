@@ -3,4 +3,158 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/reset";
+@import "_base.scss";
+
+body {
+	background-color: #d1d1d1;
+	font-size: 62.5%;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.view {
+
+	min-width: 700px;
+
+	>header {
+		min-height: 30px;
+		padding-top: 10px;
+		background-color: #ddbc41;
+		color: #fff;
+		font-size: 1.8em;
+
+		div {
+			display: inline-block;
+			float: left;
+		}
+	}
+
+	.settings {
+		width: 20%;
+		margin-left: 2%;
+
+		a {
+			margin-left: 5px;
+		}
+	}
+
+	.name {
+		width: 46%;
+		text-align: center;
+
+	}
+
+	.account {
+		width: 30%;
+		text-align: right;
+		margin-right: 2%;
+	}
+
+	.buttons {
+		position: absolute;
+		right: 10px;
+		top: 50px;
+
+		a {
+			vertical-align: top;
+			width: 40px;
+			height: 32px;
+			padding: 15px 0 0 20px;
+			display: inline-block;
+			background-color: #ddbc41;
+			margin-right: -1px;
+		}
+
+		a:hover {
+			background-color: #7CC691;
+		}
+	}
+
+	a[href="picture"] {
+		border-radius: 10px 0px 0px 10px;
+		&:hover {
+			background-color: #E75C5C;
+		}
+	}
+
+	a[href="text"] {
+		border-radius: 0px 10px 10px 0px;
+		&:hover {
+			background-color: #6EC0D3;
+		}
+	}
+}
+
+.holder {
+
+	article {
+		
+		display: block;
+		position: absolute;
+		padding: 20px;
+		top: 150px;
+		width: 240px;
+		height: 250px;
+		overflow: scroll;
+		background-color: #fff;
+		@include shadow(0px, 0px, 25px, 0px, rgba(0,0,0,0.4));
+    	border-top-width: 15px;
+    	border-top-style: solid;
+    	font-size: 1.4em;
+
+		h1 {
+			font-size: 1.3em;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+
+		img {
+			width: 100%;
+		}
+
+		a {
+			display: inline-block;
+			width: 52px;
+			height: 19px;
+			padding-top: 4px;
+			margin-left: 5px;
+			background-color: #ddbc41;
+			color: #fff;
+			text-decoration: none;
+			text-align: center;
+			border-radius: 3px;
+			float: right;
+		}
+
+		a:hover {
+			background-color: #ceaf2d;
+		}
+
+		.desc {
+			font-style: italic;
+			color: #6c6c6c;
+			font-size: 0.8em;
+			margin: 10px 0;
+		}
+
+	}
+
+	article[class="item picture"] {
+		left: 100px;
+		border-top-color: #E75C5C;
+	}
+
+	article[class="item text"] {
+		left: 400px;
+		border-top-color: #6EC0D3;
+	}
+
+	article[class="item video"] {
+		left: 700px;
+		border-top-color: #7CC691;
+	}
+
+	video {
+		width: 100%;
+		margin: 0 auto;
+	}
+}
