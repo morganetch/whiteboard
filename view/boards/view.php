@@ -14,29 +14,37 @@
 		<a href="text"><img src="img/balloon.png" alt="text"></a>
 	</section>
 	<section class="holder">
-		<article class="item picture">
-			<h1>Cute kitten</h1>
-			<img src="uploads/cutecat.jpg" alt="cute cat">
-			<p class="desc">Picture taken on 23/08/2013 when I was on vacation in Greece</p>
-			<a href="edit">Edit</a>
-			<a href="delete">Delete</a>
-		</article>
-
-		<article class="item video">
-			<h1>Sky Scream</h1>
-			<video src="uploads/skyscream.mp4" controls></video>
-			<p class="desc">Awesome onride video of Sky Scream attraction in Plopsa Holiday Park</p>
-			<a href="edit">Edit</a>
-			<a href="delete">Delete</a>
-		</article>
-
-		<article class="item text">
-			<h1>Lorem Ipsum</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque augue neque, ultricies vitae condimentum eget, consequat id enim. Suspendisse vulputate bibendum neque in aliquet. Aliquam ac elit tellus. Fusce et porttitor metus. Quisque facilisis nulla at lectus efficitur gravida. Phasellus nec lectus ligula. In quis turpis eget lacus finibus fermentum ut ut magna. Curabitur sed molestie tortor, quis posuere diam. Etiam pretium ex eu ullamcorper scelerisque. Aenean lobortis purus tincidunt tellus ullamcorper facilisis. Donec vestibulum, turpis eu placerat volutpat, metus felis aliquet urna, vel blandit eros diam vel tortor. Nulla facilisi. Duis ac porttitor purus. Donec ultrices lobortis mattis. Nulla eleifend, orci id fermentum porta, erat leo sagittis mi, vitae pharetra turpis diam sed urna.</p>
-			<p class="desc">This is some random text I used to fill in the paragraph</p>
-			<a href="edit">Edit</a>
-			<a href="delete">Delete</a>
-		</article>
+		<?php
+		foreach ($items as $item) {
+		 	if($item['type'] == 1){ ?>
+		 		<article class="item picture" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" >
+					<h1><?php echo $item['title']; ?></h1>
+					<img src="uploads/<?php echo $item['content']; ?>" alt="cute cat">
+					<p class="desc"><?php echo $item['description']; ?></p>
+					<a href="edit">Edit</a>
+					<a href="delete">Delete</a>
+				</article>
+		 	<?php 
+		 	} else if($item['type'] == 2){ ?>
+				<article class="item video" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px">
+					<h1><?php echo $item['title']; ?></h1>
+					<video src="uploads/<?php echo $item['content']; ?>" controls></video>
+					<p class="desc"><?php echo $item['description']; ?></p>
+					<a href="edit">Edit</a>
+					<a href="delete">Delete</a>
+				</article>
+		 	<?php
+		 	} else { ?>
+				<article class="item text" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px">
+					<h1><?php echo $item['title']; ?></h1>
+					<p><?php echo $item['content']; ?></p>
+					<p class="desc"><?php echo $item['description']; ?></p>
+					<a href="edit">Edit</a>
+					<a href="delete">Delete</a>
+				</article>
+		 	<?php
+		 	}
+		 } ?>
 	</section>
     
 </section>

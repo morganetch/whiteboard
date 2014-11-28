@@ -6,7 +6,7 @@ require_once WWW_ROOT . 'php-image-resize' . DS . 'ImageResize.php';
 
 class BoardsController extends Controller {
 
-	private $userDAO;
+	private $boardDAO;
 
 	function __construct() {
 		$this->boardDAO = new BoardDAO();
@@ -19,5 +19,9 @@ class BoardsController extends Controller {
 	}
 
 	public function view() {
+		$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
+
+
+		$this->set('items', $items);
 	}
 }
