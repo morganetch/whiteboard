@@ -11,6 +11,8 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 }
 
+/* VIEW PAGINA */
+
 .view {
 
 	min-width: 700px;
@@ -152,5 +154,17 @@ body {
 	video {
 		width: 100%;
 		margin: 0 auto;
+	}
+}
+
+/* REGISTER */
+.register{
+
+	.kader-register{
+		width: 400px;
+		height: 500px;
+		background-color: red;
+		margin: 0 auto;
+		margin-top: 70px;
 	}
 }
