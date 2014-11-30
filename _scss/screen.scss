@@ -52,9 +52,10 @@ body {
 	}
 
 	.buttons {
-		position: absolute;
-		right: 10px;
-		top: 50px;
+		float: right;
+		position: relative;
+		right: 15px;
+		top: 15px;
 
 		a {
 			vertical-align: top;

@@ -17,7 +17,7 @@
 		<?php
 		foreach ($items as $item) {
 		 	if($item['type'] == 1){ ?>
-		 		<article class="item picture" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" >
+		 		<article class="item picture" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" id="<?php echo $item['id']; ?>">
 					<h1><?php echo $item['title']; ?></h1>
 					<img src="uploads/<?php echo $item['content']; ?>" alt="cute cat">
 					<p class="desc"><?php echo $item['description']; ?></p>
@@ -26,7 +26,7 @@
 				</article>
 		 	<?php 
 		 	} else if($item['type'] == 2){ ?>
-				<article class="item video" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px">
+				<article class="item video" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" id="<?php echo $item['id']; ?>">
 					<h1><?php echo $item['title']; ?></h1>
 					<video src="uploads/<?php echo $item['content']; ?>" controls></video>
 					<p class="desc"><?php echo $item['description']; ?></p>
@@ -35,7 +35,7 @@
 				</article>
 		 	<?php
 		 	} else { ?>
-				<article class="item text" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px">
+				<article class="item text" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" id="<?php echo $item['id']; ?>">
 					<h1><?php echo $item['title']; ?></h1>
 					<p><?php echo $item['content']; ?></p>
 					<p class="desc"><?php echo $item['description']; ?></p>

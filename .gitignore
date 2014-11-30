@@ -2,3 +2,4 @@ node_modules/
 php-image-resize/
 phpass/
 uploads/
+.DS_Store

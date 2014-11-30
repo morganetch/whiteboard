@@ -29,6 +29,9 @@
         </nav>
 
 	<?php echo $content; ?>
+<script type="text/javascript" src="js/vendor/jquery.js"></script>
+<script type="text/javascript" src="js/vendor/bean.min.js"></script>
+<script type="text/javascript" src="js/script.dist.js"></script>
 </div>
 </body>
 </html>
