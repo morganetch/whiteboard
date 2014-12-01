@@ -45,11 +45,10 @@ module.exports = (function(){
 		$.ajax({
 			type: 'POST',
 			url: 'index.php?page=view&id=' + boardId,
-			data: 'id=' + itemId + "&x=" + x + "&y=" + y + '&action=' + 'update',
+			data: 'id=' + itemId + '&x=' + x + '&y=' + y + '&action=' + 'update',
 			success:function(response){
 			}
 		});
-
 
 	};
 

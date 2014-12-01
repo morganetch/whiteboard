@@ -21,7 +21,9 @@ class BoardsController extends Controller {
 	public function view() {
 		$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
 
+
 		if(!empty($_POST)){
+			die("oke");
 			if($_POST['action'] == 'update'){
 				if(!empty($_POST['id'])){
 					$errors['id'] = 'Gelieve id mee te delen';
