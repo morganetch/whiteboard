@@ -8,7 +8,6 @@
 </head>
 <body>
 <div class="container">
-<?php print_r($_SESSION); ?>
 	<nav class="navbar" role="navigation">
         <ul>
             <li><a href="index.php" <?php if($_GET['page']=="home") { echo "class=\"active\""; } ?>>Home</a></li>
