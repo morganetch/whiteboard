@@ -217,13 +217,112 @@ body {
 }
 
 /* REGISTER */
+/* REGISTER */
 .register{
+	width: 260px;
+	height: 300px;
+	background-color: white;
+	margin: 0 auto;
+	margin-top: 70px;
+	padding: 30px;
 
-	.kader-register{
-		width: 400px;
-		height: 500px;
-		background-color: red;
+	.register-content{
+		width: 210px;
 		margin: 0 auto;
-		margin-top: 70px;
+		font-size: 1.2em;
+
+		h2{
+			font-size: 2em;
+			color: #ddbc41;
+			margin-bottom: 20px;
+		}
 	}
 }
+
+form {
+
+	input{
+		height: 20px;
+		padding: 2px;
+		//margin-top: -10px;
+		border: solid 1px #555;
+		margin-right: 3px;
+		color: #ddbc41;
+	}
+
+	.submit{
+		height: 26px;
+		color: white;
+		background-color: #ddbc41;
+		padding: 2px;
+
+		&:hover{
+			background-color: #555;
+			border: solid 1px #555;
+		}
+	}
+}
+
+.reg{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 200px;
+	border: solid 1px #ddbc41;
+}
+
+label{
+	margin-top: 10px;
+	font-size: 14px;
+	display: block;
+}
+
+.knop-reg{
+	margin-top: 10px;
+	height: 26px;
+	color: white;
+	background-color: #555555;
+	padding: 2px;
+
+	&:hover{
+		background-color: #ddbc41;
+		color: #555;
+		border: solid 1px #ddbc41;
+	}
+}
+
+.error-message{
+    color: red;
+    padding: 2px;
+    border: solid 1px red;
+}
+
+.info{
+    color: green;
+}
+
+.error.box {
+    border-color: red;
+}
+
+.info.box {
+    border-color: green;
+}
+
+.alert-danger{
+	font-weight: bold;
+	width: 100px;
+	color: red;
+    padding: 1em;
+    border: solid 1px red;
+}
+
+.alert-success{
+	font-weight: bold;
+	width: 180px;
+	color: green;
+    padding: 1em;
+    border: solid 1px green;
+    margin-left: 30px;
+    margin-bottom: 1em;
+}
+
