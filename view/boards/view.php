@@ -6,7 +6,7 @@
 			<a href="save"><img src="img/save.png" alt="save"></a>
 		</div>
 		<div class="name">Whiteboard name</div>
-		<div class="account">Logged in as GillesBm</div>
+		<div class="account">Ingelogd als <?php echo $_SESSION['user']['username'];?></div>
 	</header>
 	<section class="buttons">
 		<a href="picture"><img src="img/picture.png" alt="picture"></a>

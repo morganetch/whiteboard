@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class="container">
+<?php if($_GET['page'] != 'view'){ ?>
 	<nav class="navbar" role="navigation">
         <ul>
             <li><a href="index.php" <?php if($_GET['page']=="home") { echo "class=\"active\""; } ?>>Home</a></li>
@@ -27,7 +28,7 @@
             <?php } ?>
             </ul>
         </nav>
-
+<?php } ?>
 	<?php echo $content; ?>
 <script type="text/javascript" src="js/vendor/jquery.js"></script>
 <script type="text/javascript" src="js/vendor/bean.min.js"></script>
