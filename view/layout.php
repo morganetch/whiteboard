@@ -19,11 +19,11 @@
                 <input type="password" name="password" placeholder="wachtwoord" class="form-control" />
                 <input type="submit" value="inloggen" class="submit" />
             </form>
-                <li><a href="index.php?page=register" <?php if($_GET['page']=="register") { echo "class=\"active\""; } ?>>Register</a></li>
+                <li><a href="index.php?page=register" <?php if($_GET['page']=="register") { echo "class=\"active\""; } ?>>Registreren</a></li>
             <?php 
                 }else{ 
             ?>
-                <p class="navbar-right">Signed in as <?php echo $_SESSION['user']['username'];?> - <a href="index.php?page=logout" class="navbar-link">Logout</a></p>
+                <p class="navbar-right">Ingelogd als <?php echo $_SESSION['user']['username'];?> - <a href="index.php?page=logout" class="navbar-link">Uitloggen</a></p>
             <?php } ?>
             </ul>
         </nav>

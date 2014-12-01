@@ -1,3 +1,18 @@
 @import "compass/css3";
 @import "compass/reset";
 @import "_mixins.scss";
+
+@include font-face("pacificoregular", font-files("pacificoregular/pacifico-webfont.eot", "pacificoregular/pacifico-webfont.eot?#iefix", "pacificoregular/pacifico-webfont.woff2", "pacificoregular/pacifico-webfont.woff", "pacificoregular/pacifico-webfont.ttf", "pacificoregular/pacifico-webfont.svg#pacificoregular"));
+/*
+@font-face {
+    font-family: 'pacificoregular';
+    src: url('pacifico-webfont.eot');
+    src: url('pacifico-webfont.eot?#iefix') format('embedded-opentype'),
+         url('pacifico-webfont.woff2') format('woff2'),
+         url('pacifico-webfont.woff') format('woff'),
+         url('pacifico-webfont.ttf') format('truetype'),
+         url('pacifico-webfont.svg#pacificoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}*/
