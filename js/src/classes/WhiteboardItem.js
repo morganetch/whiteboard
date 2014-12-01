@@ -34,6 +34,23 @@ module.exports = (function(){
 	WhiteboardItem.prototype.mouseupHandler = function(event) {
 		window.removeEventListener('mousemove', this._mousemoveHandler);
 		window.removeEventListener('mouseup', this._mouseupHandler);
+
+		console.log(event.target.id);
+
+		var boardId = document.URL.split('id=')[1];
+		var itemId = event.target.id;
+		var x = event.x - this.offsetX;
+		var y = event.y - this.offsetY;
+
+		$.ajax({
+			type: 'POST',
+			url: 'index.php?page=view&id=' + boardId,
+			data: 'id=' + itemId + "&x=" + x + "&y=" + y + '&action=' + 'update',
+			success:function(response){
+			}
+		});
+
+
 	};
 
 	WhiteboardItem.prototype.editItemHander = function(event) {
