@@ -401,7 +401,7 @@ label{
 			text-align: center;
 			vertical-align: center;
 			padding-top: 12px;
-			font-size: 1.2em;
+			font-size: 1.4em;
 			background-color: #e95b59;
 
 			a:link,
@@ -412,6 +412,61 @@ label{
 
 			a:hover{
 				color: #555;
+			}
+		}
+	}
+}
+	// boards
+.boards{
+	width: 400px;
+	margin: 0 auto;
+	height: 100%;
+	padding-top: 40px;
+
+	.eigen-boards{
+		float: left;
+		width: 150px;
+
+		li{
+			color: #555555;
+			font-size: 1.3em;
+			margin-right: 20px;
+			margin-top: 5px;
+			
+			&:hover, 
+			&:focus, 
+			&:active{
+				color: #e95b59;
+			}
+
+			a:link,
+			a:visited{
+			    text-decoration: none; 
+			    color: #555555;
+			}
+		}
+	}
+
+	.invited-boards{
+		float: right;
+		width: 150px;
+
+		li{
+			color: #555555;
+			font-size: 1.3em;
+			margin-right: 20px;
+			margin-top: 5px;
+			
+			&:hover, 
+			&:focus, 
+			&:active{
+				color: #e95b59;
+			}
+
+			a:link,
+			a:visited{
+			    text-decoration: none; 
+			    color: #555555;
 			}
 		}
 	}
@@ -438,4 +493,5 @@ label{
 		}
 	}
 }
+
 
