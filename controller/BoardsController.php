@@ -30,6 +30,8 @@ class BoardsController extends Controller {
 			$invitedBoards = $this->boardDAO->selectInvitedBoardsByUserId($_SESSION['user']['id']);
 
 		}
+			$this->set('ownBoards', $ownBoards);
+			$this->set('invitedBoards', $invitedBoards);
 	}
 
 	public function view() {
