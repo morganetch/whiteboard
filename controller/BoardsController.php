@@ -21,7 +21,6 @@ class BoardsController extends Controller {
 	public function view() {
 		$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
 
-
 		if(!empty($_POST)){
 			die("oke");
 			if($_POST['action'] == 'update'){
@@ -48,7 +47,6 @@ class BoardsController extends Controller {
 				}
 			}
 		}
-
 
 		$this->set('items', $items);
 	}
