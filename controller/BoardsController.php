@@ -17,7 +17,7 @@ class BoardsController extends Controller {
 
 	public function overview() {
 		if(empty($_SESSION['user'])){
-			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboards te zien'
+			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboards te zien';
 			$this->redirect('index.php');
 		} else {
 
@@ -35,24 +35,18 @@ class BoardsController extends Controller {
 	public function view() {
 
 		if(empty($_SESSION['user'])){
-			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboard te zien'
+			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboard te zien';
 			$this->redirect('index.php');
 		} else {
 			$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
-			
+
 			if(!empty($_POST)){
+
 				if($_POST['action'] == 'update'){
+
 					if(!empty($_POST['id'])){
 						$errors['id'] = 'Gelieve id mee te delen';
 					}
-
-		if(!empty($_POST)){
-			die("oke");
-			if($_POST['action'] == 'update'){
-				if(!empty($_POST['id'])){
-					$errors['id'] = 'Gelieve id mee te delen';
-				}
-
 
 					if(!empty($_POST['x'])){
 						$errors['x'] = 'Gelieve x waarde mee te delen';
@@ -73,7 +67,6 @@ class BoardsController extends Controller {
 					}
 				}
 			}
-
 
 			$this->set('items', $items);
 		}
