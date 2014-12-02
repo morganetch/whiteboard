@@ -38,37 +38,45 @@ class BoardsController extends Controller {
 			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboard te zien';
 			$this->redirect('index.php');
 		} else {
-			$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
+			$board = $this->boardDAO->selectBoardById($_GET['id']);
 
-			if(!empty($_POST)){
+			if(empty($board)){
+				$_SESSION['error'] = 'Ongeldig bord geselecteerd';
+				$this->redirect('index.php');
+			} else {
+				$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
 
-				if($_POST['action'] == 'update'){
+				if(!empty($_POST)){
 
-					if(!empty($_POST['id'])){
-						$errors['id'] = 'Gelieve id mee te delen';
-					}
+					if($_POST['action'] == 'update'){
 
-					if(!empty($_POST['x'])){
-						$errors['x'] = 'Gelieve x waarde mee te delen';
-					}
-
-					if(!empty($_POST['y'])){
-						$errors['y'] = 'Gelieve y waarde mee te delen';
-					}
-
-					if(!empty($errors)){
-						$update = $this->boardDAO->update($_POST);
-
-						if(!empty($update)){
-							$this->redirect("index.php");
+						if(!empty($_POST['id'])){
+							$errors['id'] = 'Gelieve id mee te delen';
 						}
-					} else {
-						$this->set('errors', $errors);
+
+						if(!empty($_POST['x'])){
+							$errors['x'] = 'Gelieve x waarde mee te delen';
+						}
+
+						if(!empty($_POST['y'])){
+							$errors['y'] = 'Gelieve y waarde mee te delen';
+						}
+
+						if(!empty($errors)){
+							$update = $this->boardDAO->update($_POST);
+
+							if(!empty($update)){
+								$this->redirect("index.php");
+							}
+						} else {
+							$this->set('errors', $errors);
+						}
 					}
 				}
+				$this->set('board', $board);
+				$this->set('items', $items);
 			}
-
-			$this->set('items', $items);
+			
 		}
 
 	}
