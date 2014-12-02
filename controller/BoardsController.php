@@ -16,10 +16,35 @@ class BoardsController extends Controller {
 	}
 
 	public function overview() {
+		if(empty($_SESSION['user'])){
+			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboards te zien'
+			$this->redirect('index.php');
+		} else {
+
+			if(!empty($_POST)){
+				if($_POST['action'] == 'new'){
+					$this->redirect('index.php?page=add');
+				}
+			}
+			$ownBoards = $this->boardDAO->selectBoardsByUserId($_SESSION['user']['id']);
+			$invitedBoards = $this->boardDAO->selectInvitedBoardsByUserId($_SESSION['user']['id']);
+
+		}
 	}
 
 	public function view() {
-		$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
+
+		if(empty($_SESSION['user'])){
+			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboard te zien'
+			$this->redirect('index.php');
+		} else {
+			$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
+			
+			if(!empty($_POST)){
+				if($_POST['action'] == 'update'){
+					if(!empty($_POST['id'])){
+						$errors['id'] = 'Gelieve id mee te delen';
+					}
 
 		if(!empty($_POST)){
 			die("oke");
@@ -28,26 +53,30 @@ class BoardsController extends Controller {
 					$errors['id'] = 'Gelieve id mee te delen';
 				}
 
-				if(!empty($_POST['x'])){
-					$errors['x'] = 'Gelieve x waarde mee te delen';
-				}
 
-				if(!empty($_POST['y'])){
-					$errors['y'] = 'Gelieve y waarde mee te delen';
-				}
-
-				if(!empty($errors)){
-					$update = $this->boardDAO->update($_POST);
-
-					if(!empty($update)){
-						$this->redirect("index.php");
+					if(!empty($_POST['x'])){
+						$errors['x'] = 'Gelieve x waarde mee te delen';
 					}
-				} else {
-					$this->set('errors', $errors);
+
+					if(!empty($_POST['y'])){
+						$errors['y'] = 'Gelieve y waarde mee te delen';
+					}
+
+					if(!empty($errors)){
+						$update = $this->boardDAO->update($_POST);
+
+						if(!empty($update)){
+							$this->redirect("index.php");
+						}
+					} else {
+						$this->set('errors', $errors);
+					}
 				}
 			}
+
+
+			$this->set('items', $items);
 		}
 
-		$this->set('items', $items);
 	}
 }

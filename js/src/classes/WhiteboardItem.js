@@ -32,10 +32,6 @@ module.exports = (function(){
 	};
 
 	WhiteboardItem.prototype.mouseupHandler = function(event) {
-		window.removeEventListener('mousemove', this._mousemoveHandler);
-		window.removeEventListener('mouseup', this._mouseupHandler);
-
-		console.log(event.target.id);
 
 		var boardId = document.URL.split('id=')[1];
 		var itemId = event.target.id;
@@ -50,6 +46,8 @@ module.exports = (function(){
 			}
 		});
 
+		window.removeEventListener('mousemove', this._mousemoveHandler);
+		window.removeEventListener('mouseup', this._mouseupHandler);
 	};
 
 	WhiteboardItem.prototype.editItemHander = function(event) {

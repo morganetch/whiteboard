@@ -11,6 +11,22 @@ class BoardDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function selectBoardsByUserId($id) {
+		$sql = "SELECT * FROM `wb_boards` WHERE wb_boards.user_id = :id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':id', $id);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function selectInvitedBoardsByUserId($id) {
+		$sql = "SELECT * FROM `wb_boards` WHERE wb_boards.user_id = :id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':id', $id);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function update($data){
 		die("in update");
 		$errors = $this->getValidationErrors($data);
