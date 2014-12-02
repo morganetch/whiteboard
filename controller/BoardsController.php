@@ -26,6 +26,7 @@ class BoardsController extends Controller {
 					$this->redirect('index.php?page=add');
 				}
 			}
+			
 			$ownBoards = $this->boardDAO->selectBoardsByUserId($_SESSION['user']['id']);
 			$invitedBoards = $this->boardDAO->selectInvitedBoardsByUserId($_SESSION['user']['id']);
 

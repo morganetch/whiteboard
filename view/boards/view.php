@@ -5,7 +5,7 @@
 			<a href="settings"><img src="img/settings.png" alt="settings"></a>
 			<a href="save"><img src="img/save.png" alt="save"></a>
 		</div>
-		<div class="name">Whiteboard name</div>
+		<div class="name"><?php echo $board['name']; ?></div>
 		<div class="account">Ingelogd als <?php echo $_SESSION['user']['username'];?></div>
 	</header>
 	<section class="buttons">
