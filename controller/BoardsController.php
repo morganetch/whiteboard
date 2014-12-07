@@ -13,6 +13,31 @@ class BoardsController extends Controller {
 	}
 
 	public function add() {
+
+		if(!empty($_POST)){
+			$errors = array();
+
+			if(empty($_POST["name"])){
+				$errors["name"] = "Geef een naam in aub";
+			}
+
+			if(empty($errors)){
+				$whiteboard = $this->boardDAO->insert(array(
+					"name"=>$_POST["name"],
+					"creation_date"=>date("Y-m-d H:i:s"),
+					"user_id"=>$_SESSION["user"]["id"]
+				));
+
+				if(!empty($whiteboard)){
+					
+					$_SESSION["info"] = "Je hebt een whiteboard aangemaakt";
+					$this->redirect("index.php?page=view&id=".$whiteboard["id"]);
+				}
+			}
+
+			$_SESSION["error"] = "Er is iets misgelopen, uw whiteboard werd niet aangemaakt";
+			$this->set("errors", $errors);
+		}
 	}
 
 	public function overview() {
