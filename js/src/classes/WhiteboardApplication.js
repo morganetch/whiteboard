@@ -52,10 +52,10 @@ module.exports = (function(){
 			description: section.querySelector('.desc').innerText,
 			content: content,
 			new: false
-		}
+		};
 
 		this.addItemHandler(data);
-	}
+	};
 
 	WhiteboardApplication.prototype.makeNewItem = function(event) {
 		event.preventDefault();

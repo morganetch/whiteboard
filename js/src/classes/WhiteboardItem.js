@@ -37,8 +37,6 @@ module.exports = (function(){
 		if(this.$el.css('top').split('px')[0] < 40){
 			this.$el.css('top', '40px');
 		}
-
-
 	};
 
 	WhiteboardItem.prototype.mouseupHandler = function(event) {
@@ -97,21 +95,21 @@ module.exports = (function(){
 
 			case 3:
 
-				$.post( "index.php?page=edit", { 
+				$.post( "index.php?page=edit", 
+					{ 
 						id: this.data.id,
 						title: this.form.querySelector('input[name="title"]').value,
 						content: this.form.querySelector('textarea[name="content"]').value,
 						desc: this.form.querySelector('textarea[name="desc"]').value,
 						boardId: boardId
-					})
-				  .done(function(data) {
+					}).done(function(data) {
 				    // console.log(data);
 				   	// if(data.result) {
 				   	// 	voorbeeldJSONGet();
 				   	// } else {
 
 				   	// }
-				  });
+				  	});
 
 
 
@@ -132,7 +130,7 @@ module.exports = (function(){
 		var html = template(data);
 		return new WhiteboardItem($(html), data);
 
-	}
+	};
 
 	return WhiteboardItem;
 })();
