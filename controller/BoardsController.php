@@ -1,15 +1,18 @@
 <?php
 require_once WWW_ROOT . 'controller' . DS . 'Controller.php';
 require_once WWW_ROOT . 'dao' . DS . 'BoardDAO.php';
+require_once WWW_ROOT . 'dao' . DS . 'ItemDAO.php';
 
 require_once WWW_ROOT . 'php-image-resize' . DS . 'ImageResize.php';
 
 class BoardsController extends Controller {
 
 	private $boardDAO;
+	private $itemDAO;
 
 	function __construct() {
 		$this->boardDAO = new BoardDAO();
+		$this->itemDAO = new ItemDAO();
 	}
 
 	public function add() {
@@ -72,11 +75,43 @@ class BoardsController extends Controller {
 				$_SESSION['error'] = 'Ongeldig bord geselecteerd';
 				$this->redirect('index.php');
 			} else {
-				$items = $this->boardDAO->selectItemsByBoardId($_GET['id']);
+				$items = $this->itemDAO->selectItemsByBoardId($_GET['id']);
 
 				if(!empty($_POST)){
 
-					if($_POST['action'] == 'update'){
+					if($_POST['action'] == 'Wijzig'){
+
+						$errors = [];
+
+						if(empty($_POST['title'])){
+							$errors['title'] = 'Gelieve een titel in te vullen';
+						}
+
+						if(empty($_POST['content'])){
+							$errors['content'] = 'Gelieve tekst in te vullen';
+						}
+
+						if(empty($_POST['desc'])){
+							$errors['desc'] = 'Gelieve een omschrijving in te vullen';
+						}
+
+						if(empty($_POST['id'])){
+							$errors['id'] = 'Gelieve een id in te vullen';
+						}
+
+						if(empty($errors)){
+							$update = $this->itemDAO->updateContent($_POST);
+
+							if(!empty($update)){
+								$this->redirect("index.php?page=view&id=" . $_GET['id']);
+							} else {
+								$this->set('errors', $errors);
+							}
+						}
+
+					}
+
+					if($_POST['action'] == 'updatePositions'){
 
 						if(!empty($_POST['id'])){
 							$errors['id'] = 'Gelieve id mee te delen';
@@ -91,7 +126,7 @@ class BoardsController extends Controller {
 						}
 
 						if(!empty($errors)){
-							$update = $this->boardDAO->update($_POST);
+							$update = $this->itemDAO->updatePositions($_POST);
 
 							if(!empty($update)){
 								$this->redirect("index.php");

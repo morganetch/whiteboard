@@ -30,8 +30,79 @@
         </nav>
 <?php } ?>
 	<?php echo $content; ?>
+
+<script type="text/template" id="1-template">
+    <article class="item picture" style="top: {{top}}; left: {{left}}" id="{{id}}">
+        <div class="border picture"><img src="img/move.png" alt="move"></div>
+        <section id="{{type}}">
+            <img src="img/settingsblack.png" alt="settings">
+            <header><h1>{{title}}</h1></header>
+            <img src="{{content}}" alt="{{title}}">
+            <p class="desc">{{description}}</p>
+        </section>
+    </article>
+</script>
+
+<script type="text/template" id="2-template">
+    <article class="item video" style="top: {{top}}; left: {{left}}" id="{{id}}">
+        <div class="border video"><img src="img/move.png" alt="move"></div>
+        <section id="{{type}}">
+            <img src="img/settingsblack.png" alt="settings">
+            <header><h1>{{title}}</h1></header>
+            <video src="{{content}}" controls></video>
+            <p class="desc">{{description}}</p>
+        </section>
+    </article>
+</script>
+
+<script type="text/template" id="3-template">
+    <article class="item text" style="top: {{top}}; left: {{left}}" id="{{id}}">
+        <div class="border text"><img src="img/move.png" alt="move"></div>
+        <section id="{{type}}">
+            <img src="img/settingsblack.png" alt="settings">
+            <header><h1>{{title}}</h1></header>
+            <p>{{content}}</p>
+            <p class="desc">{{description}}</p>
+        </section>
+    </article>
+</script>
+
+<script type="text/template" id="edit-1-template">
+    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST" name="action" value="update">
+        <input type="text" name="title" value="{{title}}">
+        <input type="file" name="image">
+        <textarea name="desc">{{description}}</textarea>
+        <input type="number" name="id" class="hidden" value="{{id}}">
+        <input type="submit" name="action" value="Wijzig">
+        <a href="delete">Verwijder</a>
+    </form>
+ </script>
+
+ <script type="text/template" id="edit-2-template">
+    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST" name="action" value="update">
+        <input type="text" name="title" value="{{title}}">
+        <input type="file" name="image">
+        <textarea name="desc">{{description}}</textarea>
+        <input type="number" name="id" class="hidden" value="{{id}}">
+        <input type="submit" name="action" value="Wijzig">
+        <a href="delete">Verwijder</a>
+    </form>
+ </script>
+
+<script type="text/template" id="edit-3-template">
+    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST" name="action" value="updateText">
+        <input type="text" name="title" value="{{title}}">
+        <textarea name="content">{{content}}</textarea>
+        <textarea name="desc">{{description}}</textarea>
+        <input type="number" name="id" class="hidden" value="{{id}}">
+        <input type="submit" name="action" value="Wijzig">
+        <a href="delete">Verwijder</a>
+    </form>
+ </script>
+
 <script type="text/javascript" src="js/vendor/jquery.js"></script>
 <script type="text/javascript" src="js/vendor/bean.min.js"></script>
+<script type="text/javascript" src="js/vendor/handlebars.min.js"></script>
 <script type="text/javascript" src="js/script.dist.js"></script>
 </div>
 </body>
