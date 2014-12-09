@@ -44,27 +44,22 @@ module.exports = (function(){
 	WhiteboardItem.prototype.mouseupHandler = function(event) {
 
 		var boardId = document.URL.split('id=')[1];
-		var itemId = event.target.id;
-		var x = event.x - this.offsetX;
-		var y = event.y - this.offsetY;
+		console.log(this.data.id);
 
-		// $.ajax({
-		// 	type: "POST",
-		// 	url: 'index.php?page=view&id=' + this.boardId,
-		// 	data: {	id: this.id,
-		// 			x: this.el.style.left,
-		// 			y: this.el.style.top
-		// 		},
-		// 	success: function(data) {
-		// 		console.log('success');
-	 //  			// bean.fire(this, 'update', this);
-		// 	  	console.log(data);
-		// 	  },
-		// 	  error: function(error) {
-		// 	  	console.log('error');
-		// 	  	console.log(error);
-		// 	  }
-		// 	});
+		$.post( "index.php?page=save", { 
+				id: this.data.id,
+				x: this.$el.css('left'),
+				y: this.$el.css('top'),
+				boardId: boardId
+			})
+		  .done(function(data) {
+		    console.log(data);
+		   	// if(data.result) {
+		   	// 	voorbeeldJSONGet();
+		   	// } else {
+
+		   	// }
+		  });
 
 		window.removeEventListener('mousemove', this._mousemoveHandler);
 		window.removeEventListener('mouseup', this._mouseupHandler);
@@ -102,11 +97,11 @@ module.exports = (function(){
 
 			case 3:
 
-				this.formData = {
-					title: this.form.querySelector('input[name="title"]').value,
-					content: this.form.querySelector('textarea[name="content"]').value,
-					desc: this.form.querySelector('textarea[name="desc"]').value
-				};
+				// this.formData = {
+				// 	title: this.form.querySelector('input[name="title"]').value,
+				// 	content: this.form.querySelector('textarea[name="content"]').value,
+				// 	desc: this.form.querySelector('textarea[name="desc"]').value
+				// };
 
 				break;
 		}

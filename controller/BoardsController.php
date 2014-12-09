@@ -81,60 +81,57 @@ class BoardsController extends Controller {
 
 					if($_POST['action'] == 'Wijzig'){
 
-						$errors = [];
+						switch ($_POST['type']) {
+							case 1:
 
-						if(empty($_POST['title'])){
-							$errors['title'] = 'Gelieve een titel in te vullen';
+
+								
+								break;
+							
+							case 2:
+								
+								break;
+
+							case 3:
+
+								$errors = [];
+
+								if(empty($_POST['title'])){
+									$errors['title'] = 'Gelieve een titel in te vullen';
+								}
+
+								if(empty($_POST['content'])){
+									$errors['content'] = 'Gelieve tekst in te vullen';
+								}
+
+								if(empty($_POST['desc'])){
+									$errors['desc'] = 'Gelieve een omschrijving in te vullen';
+								}
+
+								if(empty($_POST['id'])){
+									$errors['id'] = 'Gelieve een id in te vullen';
+								}
+
+								if(empty($errors)){
+									$update = $this->itemDAO->updateContent($_POST);
+
+									if(!empty($update)){
+										$this->redirect("index.php?page=view&id=" . $_GET['id']);
+									} else {
+										$this->set('errors', $errors);
+									}
+								}
+
+								break;
 						}
 
-						if(empty($_POST['content'])){
-							$errors['content'] = 'Gelieve tekst in te vullen';
-						}
 
-						if(empty($_POST['desc'])){
-							$errors['desc'] = 'Gelieve een omschrijving in te vullen';
-						}
 
-						if(empty($_POST['id'])){
-							$errors['id'] = 'Gelieve een id in te vullen';
-						}
-
-						if(empty($errors)){
-							$update = $this->itemDAO->updateContent($_POST);
-
-							if(!empty($update)){
-								$this->redirect("index.php?page=view&id=" . $_GET['id']);
-							} else {
-								$this->set('errors', $errors);
-							}
-						}
+						
 
 					}
 
-					if($_POST['action'] == 'updatePositions'){
-
-						if(!empty($_POST['id'])){
-							$errors['id'] = 'Gelieve id mee te delen';
-						}
-
-						if(!empty($_POST['x'])){
-							$errors['x'] = 'Gelieve x waarde mee te delen';
-						}
-
-						if(!empty($_POST['y'])){
-							$errors['y'] = 'Gelieve y waarde mee te delen';
-						}
-
-						if(!empty($errors)){
-							$update = $this->itemDAO->updatePositions($_POST);
-
-							if(!empty($update)){
-								$this->redirect("index.php");
-							}
-						} else {
-							$this->set('errors', $errors);
-						}
-					}
+					
 				}
 				$this->set('board', $board);
 				$this->set('items', $items);
@@ -142,5 +139,34 @@ class BoardsController extends Controller {
 			
 		}
 
+	}
+
+	public function save(){
+
+		if($_POST){
+
+			if(!empty($_POST['id'])){
+				$errors['id'] = 'Gelieve id mee te delen';
+			}
+
+			if(!empty($_POST['x'])){
+				$errors['x'] = 'Gelieve x waarde mee te delen';
+			}
+
+			if(!empty($_POST['y'])){
+				$errors['y'] = 'Gelieve y waarde mee te delen';
+			}
+
+			if(!empty($errors)){
+				$update = $this->itemDAO->updatePositions($_POST);
+
+				if(!empty($update)){
+					$this->redirect("index.php");
+				}
+			} else {
+				$this->set('errors', $errors);
+			}
+			$this->redirect("index.php?page=view&id=" . $_POST['boardId']);
+		}
 	}
 }

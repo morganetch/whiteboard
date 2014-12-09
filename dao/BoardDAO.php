@@ -57,23 +57,6 @@ class BoardDAO extends DAO {
 		return $errors;
 	}
 
-	public function update($data){
-		die("in update");
-		$errors = $this->getValidationErrors($data);
-		if(empty($errors)) {
-			$sql = "UPDATE `wb_items` SET `x` = :x, `y` = :y WHERE `id` = :id";
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->bindValue(':x', $data['x']);
-			$stmt->bindValue(':y', $data['y']);
-			$stmt->bindValue(':id', $data['id']);
-			if($stmt->execute()) {
-				$selectId=$this->pdo->lastInsertId();
-				return $this->selectByIdItem($selectId);
-			}
-		}
-		return false;
-	}
-
 	public function getValidationErrorsUpdate($data) {
 		$errors = array();
 		if(!isset($data['id'])) {

@@ -73,6 +73,7 @@
         <input type="file" name="image">
         <textarea name="desc">{{description}}</textarea>
         <input type="number" name="id" class="hidden" value="{{id}}">
+        <input type="number" name="type" class="hidden" value="{{type}}">
         <input type="submit" name="action" value="Wijzig">
         <a href="delete">Verwijder</a>
     </form>
