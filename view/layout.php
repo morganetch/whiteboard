@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-<?php if($_GET['page'] != 'view'){ ?>
+<?php if($_GET['page'] != 'view' && $_GET['page'] != 'settings'){ ?>
 	<nav class="navbar" role="navigation">
         <ul>
             <li><a href="index.php" <?php if($_GET['page']=="home") { echo "class=\"active\""; } ?>>Home</a></li>

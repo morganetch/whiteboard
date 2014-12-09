@@ -28,7 +28,7 @@ class BoardDAO extends DAO {
 	}
 
 	public function insert($data){
-		$errors = $this->getValidationErrors($data);
+		$errors = $this->getValidationErrors($data, 1);
 		if(empty($errors)){
 			$sql = "INSERT INTO `wb_boards` (`name`, `user_id`, `creation_date`)
 					VALUES (:name, :user_id, :creation_date)";
@@ -43,31 +43,48 @@ class BoardDAO extends DAO {
 		}
 	}
 
-	public function getValidationErrors($data){
+	public function update($data){
+
+		$errors = $this->getValidationErrors($data, 2);
+
+		if(empty($errors)) {
+			$sql = "UPDATE `wb_boards` SET `name` = :name WHERE `id` = :id";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(':name', $data['name']);
+			$stmt->bindValue(':id', $data['id']);
+			if($stmt->execute()) {
+				return $this->selectBoardById($data['id']);
+			}
+		}
+		return false;
+	}
+
+	public function getValidationErrors($data, $form){
 		$errors = array();
-		if(empty($data["name"])){
-			$errors["name"] = "please fill in an name";
-		}
-		if(empty($data["user_id"])){
-			$errors["user_id"] = "Geef een user_id";
-		}
-		if(empty($data["creation_date"])){
-			$errors["creation_date"] = "Geef een datum";
+
+		switch ($form) {
+			case 1:
+				if(empty($data["name"])){
+					$errors["name"] = "Vul aub een naam in";
+				}
+				if(empty($data["user_id"])){
+					$errors["user_id"] = "Geef een user_id aub";
+				}
+				if(empty($data["creation_date"])){
+					$errors["creation_date"] = "Geef een datum";
+				}
+				break;
+			
+			case 2:
+				if(empty($data["name"])){
+					$errors["name"] = "Vul aub een naam in";
+				}
+				if(empty($data["id"])){
+					$errors["id"] = "Vul aub een id in";
+				}
+				break;
 		}
 		return $errors;
 	}
 
-	public function getValidationErrorsUpdate($data) {
-		$errors = array();
-		if(!isset($data['id'])) {
-			$errors['id'] = "Gelieve id in te vullen";
-		}
-		if(!isset($data['x'])) {
-			$errors['x'] = "Gelieve x waarde in te vullen";
-		}
-		if(!isset($data['y'])) {
-			$errors['y'] = "Gelieve y waarde in te vullen";
-		}
-		return $errors;
-	}
 }

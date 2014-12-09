@@ -31,8 +31,8 @@ module.exports = (function(){
 	};
 
 	WhiteboardItem.prototype.mousemoveHandler = function(event) {
-		this.$el.css('left', (event.x - this.offsetX) + "px");
-		this.$el.css('top', (event.y - this.offsetY) + "px");
+		this.$el.css('left', (event.pageX - this.offsetX) + "px");
+		this.$el.css('top', (event.pageY - this.offsetY) + "px");
 
 		if(this.$el.css('top').split('px')[0] < 40){
 			this.$el.css('top', '40px');

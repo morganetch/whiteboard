@@ -36,6 +36,10 @@ $routes = array(
      'save' => array(
         'controller' => 'Boards',
         'action' => 'save'
+    ),
+     'settings' => array(
+        'controller' => 'Boards',
+        'action' => 'settings'
     )
 );
 

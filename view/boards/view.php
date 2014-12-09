@@ -1,8 +1,8 @@
 <section id="content" class="view">
 	<header>
 		<div class="settings">
-			<a href="close"><img src="img/close.png" alt="close"></a>
-			<a href="settings"><img src="img/settings.png" alt="settings"></a>
+			<a href="index.php?page=overview"><img src="img/close.png" alt="close"></a>
+			<a href="index.php?page=settings&id=<?php echo $_GET['id']; ?>"><img src="img/settings.png" alt="settings"></a>
 			<a href="save"><img src="img/save.png" alt="save"></a>
 		</div>
 		<div class="name"><?php echo $board['name']; ?></div>

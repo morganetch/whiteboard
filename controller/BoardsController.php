@@ -157,16 +157,61 @@ class BoardsController extends Controller {
 				$errors['y'] = 'Gelieve y waarde mee te delen';
 			}
 
+			header('Content-Type: application/json');
+
 			if(!empty($errors)){
 				$update = $this->itemDAO->updatePositions($_POST);
 
 				if(!empty($update)){
-					$this->redirect("index.php");
+					echo json_encode(array('result' => true));
+					die();
 				}
 			} else {
 				$this->set('errors', $errors);
 			}
-			$this->redirect("index.php?page=view&id=" . $_POST['boardId']);
+			echo json_encode(array('result' => false));
+			die();
+			//$this->redirect("index.php?page=view&id=" . $_POST['boardId']);
 		}
+	}
+
+	public function settings() {
+
+		if(empty($_SESSION['user'])){
+			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboard te zien';
+			$this->redirect('index.php');
+		} else {
+
+			$board = $this->boardDAO->selectBoardById($_GET['id']);
+
+			if(empty($board)){
+				$_SESSION['error'] = 'Ongeldig bord geselecteerd';
+				$this->redirect('index.php');
+			}
+		}
+		
+		if(!empty($_POST)){
+			$errors = array();
+
+			if(empty($_POST["name"])){
+				$errors["name"] = "Geef een naam in aub";
+			}
+			
+			if(empty($errors)){
+				$whiteboard = $this->boardDAO->update(array(
+					"name"=>$_POST["name"],
+					"id"=>$_GET["id"]
+				));
+
+				if(!empty($whiteboard)){
+					$_SESSION["info"] = "Je hebt een whiteboard aangepast";
+					$this->redirect("index.php?page=view&id=".$whiteboard["id"]);
+				}
+			}
+
+			$_SESSION["error"] = "Er is iets misgelopen, vul de gegevens in aub";
+			$this->set("errors", $errors);
+		}
+		$this->set('board', $board);
 	}
 }

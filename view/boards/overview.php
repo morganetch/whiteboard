@@ -1,5 +1,3 @@
-<?php if(!empty($_SESSION["user"])){ ?>
-
 <section id="content" class="overview">
     <article class="overview-content">
     	<header>
@@ -26,7 +24,3 @@
 		</div>
     </article>
 </section>
-
-<?php }else{
-	$this->redirect("index.php");
-} ?>

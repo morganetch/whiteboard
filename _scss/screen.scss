@@ -306,7 +306,8 @@ body {
 .register form,
 .login form,
 .add form,
-.home form {
+.home form,
+.settingspage form {
 
 	input{
 		height: 20px;
@@ -583,4 +584,24 @@ body {
 	}
 }
 
+/* ADD: whiteboard */
+.settingspage{
+	width: 260px;
+	height: 300px;
+	background-color: white;
+	margin: 0 auto;
+	margin-top: 70px;
+	padding: 30px;
 
+	.settingspage-content{
+		width: 210px;
+		margin: 0 auto;
+		font-size: 1.2em;
+
+		h2{
+			font-size: 2em;
+			color: #ddbc41;
+			margin-bottom: 20px;
+		}
+	}
+}

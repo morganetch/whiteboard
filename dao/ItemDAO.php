@@ -47,8 +47,7 @@ class ItemDAO extends DAO {
 			$stmt->bindValue(':y', $data['y']);
 			$stmt->bindValue(':id', $data['id']);
 			if($stmt->execute()) {
-				$selectId=$this->pdo->lastInsertId();
-				return $this->selectItemById($selectId);
+				return $this->selectItemById($data['id']);
 			}
 		}
 		return false;
@@ -99,7 +98,6 @@ class ItemDAO extends DAO {
 		}
 
 		return $errors;
-		
 	}
 
 }
