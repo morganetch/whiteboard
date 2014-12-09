@@ -53,7 +53,7 @@ module.exports = (function(){
 				boardId: boardId
 			})
 		  .done(function(data) {
-		    console.log(data);
+		    // console.log(data);
 		   	// if(data.result) {
 		   	// 	voorbeeldJSONGet();
 		   	// } else {
@@ -97,34 +97,26 @@ module.exports = (function(){
 
 			case 3:
 
-				// this.formData = {
-				// 	title: this.form.querySelector('input[name="title"]').value,
-				// 	content: this.form.querySelector('textarea[name="content"]').value,
-				// 	desc: this.form.querySelector('textarea[name="desc"]').value
-				// };
+				$.post( "index.php?page=edit", { 
+						id: this.data.id,
+						title: this.form.querySelector('input[name="title"]').value,
+						content: this.form.querySelector('textarea[name="content"]').value,
+						desc: this.form.querySelector('textarea[name="desc"]').value,
+						boardId: boardId
+					})
+				  .done(function(data) {
+				    // console.log(data);
+				   	// if(data.result) {
+				   	// 	voorbeeldJSONGet();
+				   	// } else {
+
+				   	// }
+				  });
+
+
 
 				break;
 		}
-		
-		// $.ajax({
-		//   type: "POST",
-		//   url: 'index.php?page=view&id=' + this.boardId,
-		//   data: this.formData,
-		//   success: function(data) {
-		//   	console.log('success');
-  // 			bean.fire(this, 'update', this);
-
-		//   	// console.log(data);
-		//   	var html = data.split('<section class="holder">')[1];
-		//   	var htmll = html.split('</section></section>');
-		//   	console.log(htmll);
-		//   },
-		//   error: function(error) {
-		//   	console.log('error');
-		//   	console.log(error);
-		//   }
-		// });
-
 	};
 
 

@@ -125,12 +125,7 @@ class BoardsController extends Controller {
 								break;
 						}
 
-
-
-						
-
 					}
-
 					
 				}
 				$this->set('board', $board);
