@@ -41,10 +41,11 @@ class ItemDAO extends DAO {
 	public function updatePositions($data){
 		$errors = $this->getValidationErrors($data, 2);
 		if(empty($errors)) {
-			$sql = "UPDATE `wb_items` SET `x` = :x, `y` = :y WHERE `id` = :id";
+			$sql = "UPDATE `wb_items` SET `x` = :x, `y` = :y, `z` = :z WHERE `id` = :id";
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->bindValue(':x', $data['x']);
 			$stmt->bindValue(':y', $data['y']);
+			$stmt->bindValue(':z', $data['z']);
 			$stmt->bindValue(':id', $data['id']);
 			if($stmt->execute()) {
 				return $this->selectItemById($data['id']);
@@ -91,6 +92,10 @@ class ItemDAO extends DAO {
 
 				if(!isset($data['y'])) {
 					$errors['y'] = "Gelieve y waarde in te vullen";
+				}
+
+				if(!isset($data['z'])) {
+					$errors['z'] = "Gelieve z waarde in te vullen";
 				}
 				
 

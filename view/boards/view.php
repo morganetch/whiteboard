@@ -17,7 +17,7 @@
 		<?php
 		foreach ($items as $item) {
 		 	if($item['type'] == 1){ ?>
-		 		<article class="item picture" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" id="<?php echo $item['id']; ?>">
+		 		<article class="item picture" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px; z-index: <?php echo $item['z']; ?>;" id="<?php echo $item['id']; ?>">
 		 			<div class="border picture"><img src="img/move.png" alt="move"></div>
 					<section id="<?php echo $item['type']; ?>">
 						<img src="img/settingsblack.png" alt="settings">
@@ -28,7 +28,7 @@
 				</article>
 		 	<?php 
 		 	} else if($item['type'] == 2){ ?>
-				<article class="item video" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" id="<?php echo $item['id']; ?>">
+				<article class="item video" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px; z-index: <?php echo $item['z']; ?>;" id="<?php echo $item['id']; ?>">
 					<div class="border video"><img src="img/move.png" alt="move"></div>
 					<section id="<?php echo $item['type']; ?>">
 						<img src="img/settingsblack.png" alt="settings">
@@ -39,7 +39,7 @@
 				</article>
 		 	<?php
 		 	} else { ?>
-				<article class="item text" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px" id="<?php echo $item['id']; ?>">
+				<article class="item text" style="top: <?php echo $item['y']; ?>px; left: <?php echo $item['x']; ?>px; z-index: <?php echo $item['z']; ?>;" id="<?php echo $item['id']; ?>">
 					<div class="border text"><img src="img/move.png" alt="move"></div>
 					<section id="<?php echo $item['type']; ?>">
 						<img src="img/settingsblack.png" alt="settings">

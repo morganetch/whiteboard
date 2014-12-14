@@ -11,6 +11,7 @@ module.exports = (function(){
 		this.items = this.el.querySelectorAll('.item');
 		this.whiteboardItems = [];
 		this.$itemsList = $(el).find('.holder');
+		
 
 		for(var i = 0; i < this.items.length; i++){
 			this.addItemPreparer(this.items[i]);
@@ -46,6 +47,7 @@ module.exports = (function(){
 		var data = {
 			left: article.style.left,
 			top: article.style.top,
+			z: article.style.zIndex,
 			id: article.id,
 			type: section.id,
 			title: section.querySelector('h1').innerText,

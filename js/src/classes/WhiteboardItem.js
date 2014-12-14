@@ -20,6 +20,7 @@ module.exports = (function(){
 	WhiteboardItem.prototype.mousedownHandler = function(event) {
 		event.preventDefault();
 
+		this.$el.css('zIndex', this.getHighestZ);
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;
 
@@ -44,13 +45,14 @@ module.exports = (function(){
 		var boardId = document.URL.split('id=')[1];
 		console.log(this.data.id);
 
-		$.post( "index.php?page=save", { 
+		$.post("index.php?page=save", { 
 				id: this.data.id,
 				x: this.$el.css('left'),
 				y: this.$el.css('top'),
+				z: this.$el.css('zIndex'),
 				boardId: boardId
 			})
-		  .done(function(data) {
+		  	.done(function(data) {
 		    // console.log(data);
 		   	// if(data.result) {
 		   	// 	voorbeeldJSONGet();
@@ -130,6 +132,20 @@ module.exports = (function(){
 		var html = template(data);
 		return new WhiteboardItem($(html), data);
 
+	};
+
+	WhiteboardItem.prototype.getHighestZ = function() {
+		
+		var zIndexes = [];
+
+		var $items = $('.holder').find('article');
+		$items.each(function(index, element){
+			zIndexes.push($(element).css('zIndex'));
+		});
+
+		var highest = Math.max.apply(null, zIndexes);
+
+		return highest+1;
 	};
 
 	return WhiteboardItem;

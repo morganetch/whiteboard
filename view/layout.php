@@ -32,7 +32,7 @@
 	<?php echo $content; ?>
 
 <script type="text/template" id="1-template">
-    <article class="item picture" style="top: {{top}}; left: {{left}}" id="{{id}}">
+    <article class="item picture" style="top: {{top}}; left: {{left}}; z-index: {{z}}" id="{{id}}">
         <div class="border picture"><img src="img/move.png" alt="move"></div>
         <section id="{{type}}">
             <img src="img/settingsblack.png" alt="settings">
@@ -44,7 +44,7 @@
 </script>
 
 <script type="text/template" id="2-template">
-    <article class="item video" style="top: {{top}}; left: {{left}}" id="{{id}}">
+    <article class="item video" style="top: {{top}}; left: {{left}}; z-index: {{z}}" id="{{id}}">
         <div class="border video"><img src="img/move.png" alt="move"></div>
         <section id="{{type}}">
             <img src="img/settingsblack.png" alt="settings">
@@ -56,7 +56,7 @@
 </script>
 
 <script type="text/template" id="3-template">
-    <article class="item text" style="top: {{top}}; left: {{left}}" id="{{id}}">
+    <article class="item text" style="top: {{top}}; left: {{left}}; z-index: {{z}}" id="{{id}}">
         <div class="border text"><img src="img/move.png" alt="move"></div>
         <section id="{{type}}">
             <img src="img/settingsblack.png" alt="settings">

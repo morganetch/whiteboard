@@ -152,6 +152,10 @@ class BoardsController extends Controller {
 				$errors['y'] = 'Gelieve y waarde mee te delen';
 			}
 
+			if(!empty($_POST['z'])){
+				$errors['z'] = 'Gelieve z waarde mee te delen';
+			}
+
 			header('Content-Type: application/json');
 
 			if(!empty($errors)){
