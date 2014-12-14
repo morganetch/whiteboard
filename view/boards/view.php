@@ -23,7 +23,13 @@
 			
 			<input type="submit" name="action" value="video" class="hidden">
 		</form>
-		<a href="3"><img src="img/balloon.png" alt="text"></a>
+		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post">
+			<label for="text-upload">
+				<input type="text" id="text-upload" name="text" class="hidden">	
+			</label>
+			
+			<input type="submit" name="action" value="text" class="hidden">
+		</form>
 	</section>
 	<section class="holder">
 		<?php
