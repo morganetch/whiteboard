@@ -78,6 +78,7 @@ class BoardsController extends Controller {
 				$items = $this->itemDAO->selectItemsByBoardId($_GET['id']);
 
 				if(!empty($_POST)){
+
 					// die("post");
 					if($_POST['action'] == 'image'){
 						$this->uploadImage();
@@ -87,7 +88,23 @@ class BoardsController extends Controller {
 						$this->makeText();
 					}
 
+					if($_POST['action'] == 'Verwijder'){
 
+						$errors = $this->getValidationErrors($_POST, 1);
+
+						if(empty($errors)){
+							$delete = $this->itemDAO->deleteItem($_POST['id']);
+
+							if(!empty($delete)){
+								$this->redirect("index.php?page=view&id=" . $_GET['id']);
+							} else {
+								$_SESSION['error'] = 'Er is iets misgelopen bij het verwijderen.';
+							}
+						}
+
+					}
+
+		
 
 					if($_POST['action'] == 'Wijzig'){
 
@@ -149,6 +166,8 @@ class BoardsController extends Controller {
 	public function save(){
 
 		if($_POST){
+
+			$errors = [];
 
 			if(!empty($_POST['id'])){
 				$errors['id'] = 'Gelieve id mee te delen';
@@ -222,6 +241,24 @@ class BoardsController extends Controller {
 			$this->set("errors", $errors);
 		}
 		$this->set('board', $board);
+	}
+
+	private function getValidationErrors($data, $type){
+
+		$errors = [];
+
+		switch($type){
+
+			case 1:
+
+				if(empty($data['id'])){
+					$errors['id'] = 'Gelieve id mee te geven';
+				}
+
+				break;
+		}
+
+		return $errors;
 	}
 
 	private function uploadImage(){
@@ -341,5 +378,33 @@ class BoardsController extends Controller {
 
 	public function image(){
 		die("image die");
+	}
+
+	public function deleteItem(){
+		if($_POST){
+
+			// if(!empty($_POST['id'])){
+			// 	$errors['id'] = 'Gelieve id mee te delen';
+			// }
+
+			header('Content-Type: application/json');
+
+			// if(!empty($errors)){
+				$itemId = $_POST['id'];
+				$delete = $this->itemDAO->deleteItem($itemId);
+				echo json_encode(array('result' => true));
+					die();
+
+			// 	if(!empty($delete)){
+			// 		echo json_encode(array('result' => true));
+			// 		die();
+			// 	}
+			// } else {
+			// 	$this->set('errors', $errors);
+			// }
+			// echo json_encode(array('result' => false));
+			// die();
+			//$this->redirect("index.php?page=view&id=" . $_POST['boardId']);
+		}
 	}
 }

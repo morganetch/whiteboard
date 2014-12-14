@@ -44,6 +44,10 @@ $routes = array(
      'image' => array(
         'controller' => 'Boards',
         'action' => 'image'
+    ),
+     'deleteitem' => array(
+        'controller' => 'Boards',
+        'action' => 'deleteitem'
     )
 );
 

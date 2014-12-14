@@ -49,6 +49,16 @@ class ItemDAO extends DAO {
 		}
 	}
 
+	public function deleteItem($id){
+		// $errors = $this->getValidationErrors($data, 4);
+		// if(empty($errors)){
+			$sql = "DELETE FROM `wb_items` WHERE id = :id";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(":id", $id);
+			return $stmt->execute();
+		// }
+	}
+
 	public function updateContent($data){
 
 		$errors = $this->getValidationErrors($data, 1);
@@ -134,6 +144,12 @@ class ItemDAO extends DAO {
 
 				case 3:
 
+					break;
+
+				case 4:
+					if(!isset($data['id'])){
+						$errors['id'] = "Gelieve id in te vullen";
+					}
 					break;
 		}
 

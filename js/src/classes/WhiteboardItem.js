@@ -53,7 +53,7 @@ module.exports = (function(){
 				boardId: boardId
 			})
 		  	.done(function(data) {
-		    // console.log(data);
+		    console.log(data);
 		   	// if(data.result) {
 		   	// 	voorbeeldJSONGet();
 		   	// } else {
@@ -124,6 +124,18 @@ module.exports = (function(){
 		event.preventDefault();
 		this.$el.remove();
 		bean.fire(this, "delete", this);
+		console.log('clickhandler');
+		$.post("index.php?page=deleteitem", { 
+				id: this.data.id
+			})
+		  	.done(function(data) {
+		    // console.log(data);
+		   	// if(data.result) {
+		   	// 	voorbeeldJSONGet();
+		   	// } else {
+
+		   	// }
+		  });
 	};
 
 	WhiteboardItem.createItem = function(data){
