@@ -17,6 +17,11 @@
 				var WhiteboardApplication = require('./classes/WhiteboardApplication');
 				new WhiteboardApplication(document.querySelector('.view'));
 				break;
+
+			case 'settings':
+				var WhiteboardSettings = require('./classes/WhiteboardSettings');
+				new WhiteboardSettings(document.querySelector('.settingspage'));
+				break;
 		}
 	}
 
