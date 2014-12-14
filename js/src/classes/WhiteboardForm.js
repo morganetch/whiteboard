@@ -8,18 +8,18 @@ module.exports = (function(){
 		var $image = $(this.el).find('input[id="image-upload"]');
 		$image.on('change', this.imageValidation.bind(this));
 
+		var $video = $(this.el).find('input[id="video-upload"]');
+		$video.on('change', this.videoValidation.bind(this));
+
 	}
 
-	WhiteboardForm.prototype.imageValidation = function() {
-		console.log("validatie");
+	WhiteboardForm.prototype.imageValidation = function(event) {
 
 		if (window.File && window.FileReader && window.FileList && window.Blob) {
 			var file = this.el.querySelector('input[id="image-upload"]').files[0];
 			if(file.type.indexOf('image') === 0){
-				// var $form = $(this.el).find('input[id="image-upload"]');
-				// $form.parent().parent().submit();
-				var form = this.el.querySelector('form');
-				console.log(form);
+				var $submitbutton = $(this.el).find('input[value="image"]');
+				$submitbutton.click();
 
 
 				// $.post("index.php?page=image", { 
@@ -43,6 +43,15 @@ module.exports = (function(){
 
 
 		
+	};
+
+	WhiteboardForm.prototype.videoValidation = function(event) {
+		event.preventDefault();
+		var file = this.el.querySelector('input[id="video-upload"]').files[0];
+		if(file.type.indexOf('video') === 0){
+			var $submitbutton = $(this.el).find('input[value="video"]');
+			$submitbutton.click();
+		}
 	};
 
 	return WhiteboardForm;

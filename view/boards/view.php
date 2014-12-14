@@ -14,9 +14,15 @@
 				<input type="file" id="image-upload" name="image" class="hidden" accept="image/x-png, image/gif, image/jpeg">	
 			</label>
 			
-			<input type="submit" name="action" value="image">
+			<input type="submit" name="action" value="image" class="hidden">
 		</form>
-		<a href="2"><img src="img/video.png" alt="video"></a>
+		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post" enctype="multipart/form-data">
+			<label for="video-upload">
+				<input type="file" id="video-upload" name="video" class="hidden" accept="video/*">	
+			</label>
+			
+			<input type="submit" name="action" value="video" class="hidden">
+		</form>
 		<a href="3"><img src="img/balloon.png" alt="text"></a>
 	</section>
 	<section class="holder">

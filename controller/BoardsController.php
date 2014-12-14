@@ -81,7 +81,11 @@ class BoardsController extends Controller {
 					// die("post");
 					if($_POST['action'] == 'image'){
 						$this->uploadImage();
+					} elseif ($_POST['action'] == 'video') {
+						$this->uploadVideo();
 					}
+
+
 
 					if($_POST['action'] == 'Wijzig'){
 
@@ -262,6 +266,43 @@ class BoardsController extends Controller {
 			}
 
 		}
+	}
+
+	private function uploadVideo(){
+
+		if(!empty($_FILES['video']['error'])) {
+			$_SESSION['error'] = 'Er is een probleem met uw video';
+		} else {
+			$sourceFile = $_FILES['video']['tmp_name'];
+			$destFile = WWW_ROOT . 'uploads' . DS . $_FILES['video']['name'];
+			move_uploaded_file($sourceFile, $destFile);
+			$name = $_FILES['video']['name'];
+
+			$z = $this->getHighestZIndex();
+
+			$data = array();
+			$data['video'] = $name;
+			$data['user_id'] = $_SESSION['user']['id'];
+			$data['board_id'] = $_GET['id'];
+			$data['type'] = 2;
+			$data['title'] = 'Video';
+			$data['content'] = $name;
+			$data['description'] = 'Toegevoegd op ' . date('d/m/Y');
+			$data['x'] = 100;
+			$data['y'] = 100;
+			$data['z'] = $z;
+
+			$result = $this->itemDAO->insertItem($data);
+			if(!empty($result)){
+				$_SESSION['info'] = 'Item toegevoegd!';
+				$this->redirect('index.php?page=view&id='.$_GET['id']);
+			} else {
+		        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
+		        // $errors = $this->pictureDAO->getValidationErrors($data);
+		    }
+
+		}
+
 	}
 
 	private function getHighestZindex(){

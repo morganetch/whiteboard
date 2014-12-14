@@ -128,11 +128,18 @@ body {
 			margin-right: -1px;
 		}
 
-		label[for='image-upload'] {
+		label {
 			width: 40px;
 			height: 32px;
 			display: block;
+		}
+
+		label[for='image-upload'] {
 			background: url('../img/picture.png') no-repeat;
+		}
+
+		label[for='video-upload'] {
+			background: url('../img/video.png') no-repeat;
 		}
 
 		a:hover {
