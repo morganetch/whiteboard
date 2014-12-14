@@ -83,6 +83,8 @@ class BoardsController extends Controller {
 						$this->uploadImage();
 					} elseif ($_POST['action'] == 'video') {
 						$this->uploadVideo();
+					} elseif ($_POST['action'] == 'text') {
+						$this->makeText();
 					}
 
 
@@ -243,7 +245,6 @@ class BoardsController extends Controller {
 				$z = $this->getHighestZIndex();
 
 				$data = array();
-				$data['image'] = $name;
 				$data['user_id'] = $_SESSION['user']['id'];
 				$data['board_id'] = $_GET['id'];
 				$data['type'] = 1;
@@ -281,7 +282,6 @@ class BoardsController extends Controller {
 			$z = $this->getHighestZIndex();
 
 			$data = array();
-			$data['video'] = $name;
 			$data['user_id'] = $_SESSION['user']['id'];
 			$data['board_id'] = $_GET['id'];
 			$data['type'] = 2;
@@ -302,6 +302,34 @@ class BoardsController extends Controller {
 		    }
 
 		}
+
+	}
+
+	private function makeText(){
+
+			$z = $this->getHighestZIndex();
+
+			$data = array();
+			$data['user_id'] = $_SESSION['user']['id'];
+			$data['board_id'] = $_GET['id'];
+			$data['type'] = 3;
+			$data['title'] = 'Titel';
+			$data['content'] = 'Voor deze tekst aan te passen klik je rechtsbovenaan op het instellingen-icoontje.';
+			$data['description'] = 'Toegevoegd op ' . date('d/m/Y');
+			$data['x'] = 100;
+			$data['y'] = 100;
+			$data['z'] = $z;
+
+			$result = $this->itemDAO->insertItem($data);
+			if(!empty($result)){
+				$_SESSION['info'] = 'Item toegevoegd!';
+				$this->redirect('index.php?page=view&id='.$_GET['id']);
+			} else {
+		        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
+		        // $errors = $this->pictureDAO->getValidationErrors($data);
+		    }
+
+		
 
 	}
 

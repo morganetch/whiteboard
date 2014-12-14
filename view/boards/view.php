@@ -24,11 +24,7 @@
 			<input type="submit" name="action" value="video" class="hidden">
 		</form>
 		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post">
-			<label for="text-upload">
-				<input type="text" id="text-upload" name="text" class="hidden">	
-			</label>
-			
-			<input type="submit" name="action" value="text" class="hidden">
+			<input type="submit" name="action" value="text">
 		</form>
 	</section>
 	<section class="holder">

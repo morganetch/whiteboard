@@ -128,7 +128,7 @@ body {
 			margin-right: -1px;
 		}
 
-		label {
+		label, input[value='text'] {
 			width: 40px;
 			height: 32px;
 			display: block;
@@ -142,8 +142,10 @@ body {
 			background: url('../img/video.png') no-repeat;
 		}
 
-		label[for='text-upload'] {
+		input[value='text'] {
 			background: url('../img/balloon.png') no-repeat;
+			color: transparent;
+			border: none;
 		}
 
 		a:hover {
