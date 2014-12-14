@@ -2,6 +2,7 @@
 require_once WWW_ROOT . 'controller' . DS . 'Controller.php';
 require_once WWW_ROOT . 'dao' . DS . 'BoardDAO.php';
 require_once WWW_ROOT . 'dao' . DS . 'ItemDAO.php';
+require_once WWW_ROOT . 'dao' . DS . 'InviteDAO.php';
 
 require_once WWW_ROOT . 'php-image-resize' . DS . 'ImageResize.php';
 
@@ -9,10 +10,12 @@ class BoardsController extends Controller {
 
 	private $boardDAO;
 	private $itemDAO;
+	private $inviteDAO;
 
 	function __construct() {
 		$this->boardDAO = new BoardDAO();
 		$this->itemDAO = new ItemDAO();
+		$this->inviteDAO = new InviteDAO();
 	}
 
 	public function add() {
@@ -211,6 +214,7 @@ class BoardsController extends Controller {
 		} else {
 
 			$board = $this->boardDAO->selectBoardById($_GET['id']);
+			$invites = $this->inviteDAO->selectInvitesByBoardId($_GET['id']);
 
 			if(empty($board)){
 				$_SESSION['error'] = 'Ongeldig bord geselecteerd';
@@ -241,6 +245,7 @@ class BoardsController extends Controller {
 			$this->set("errors", $errors);
 		}
 		$this->set('board', $board);
+		$this->set('invites', $invites);
 	}
 
 	private function getValidationErrors($data, $type){

@@ -357,7 +357,7 @@ body {
 		border: solid 1px #ddbc41;
 	}
 
-	label{
+	label, h3 {
 		margin-top: 10px;
 		font-size: 14px;
 		display: block;
@@ -623,5 +623,9 @@ body {
 			color: #ddbc41;
 			margin-bottom: 20px;
 		}
+	}
+
+	ul {
+		margin-top: 10px;
 	}
 }
