@@ -9,7 +9,13 @@
 		<div class="account">Ingelogd als <?php echo $_SESSION['user']['username'];?></div>
 	</header>
 	<section class="buttons">
-		<a href="1"><img src="img/picture.png" alt="picture"></a>
+		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post" enctype="multipart/form-data">
+			<label for="image-upload">
+				<input type="file" id="image-upload" name="image" class="hidden" accept="image/x-png, image/gif, image/jpeg">	
+			</label>
+			
+			<input type="submit" name="action" value="image">
+		</form>
 		<a href="2"><img src="img/video.png" alt="video"></a>
 		<a href="3"><img src="img/balloon.png" alt="text"></a>
 	</section>

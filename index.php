@@ -40,6 +40,10 @@ $routes = array(
      'settings' => array(
         'controller' => 'Boards',
         'action' => 'settings'
+    ),
+     'image' => array(
+        'controller' => 'Boards',
+        'action' => 'image'
     )
 );
 

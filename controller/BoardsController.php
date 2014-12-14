@@ -78,6 +78,10 @@ class BoardsController extends Controller {
 				$items = $this->itemDAO->selectItemsByBoardId($_GET['id']);
 
 				if(!empty($_POST)){
+					// die("post");
+					if($_POST['action'] == 'image'){
+						$this->uploadImage();
+					}
 
 					if($_POST['action'] == 'Wijzig'){
 
@@ -212,5 +216,61 @@ class BoardsController extends Controller {
 			$this->set("errors", $errors);
 		}
 		$this->set('board', $board);
+	}
+
+	private function uploadImage(){
+
+		if(!empty($_FILES['image']['error'])) {
+			$_SESSION['error'] = 'Er is een probleem met uw foto';
+		} else {
+			if(empty(getimagesize($_FILES['image']['tmp_name']))){
+				$_SESSION['error'] = 'Dit is geen foto';
+			} else {
+				$sourceFile = $_FILES['image']['tmp_name'];
+				$destFile = WWW_ROOT . 'uploads' . DS . $_FILES['image']['name'];
+				move_uploaded_file($sourceFile, $destFile);
+				$dotPos = strrpos($_FILES['image']['name'], '.');
+				$name = $_FILES['image']['name'];
+
+				$image = new Eventviva\ImageResize(WWW_ROOT . 'uploads' . DS . $_FILES['image']['name']); 
+				$image->resizeToWidth(240);
+				$image->save(WWW_ROOT . 'uploads' . DS . $name); 
+
+				$z = $this->getHighestZIndex();
+
+				$data = array();
+				$data['image'] = $name;
+				$data['user_id'] = $_SESSION['user']['id'];
+				$data['board_id'] = $_GET['id'];
+				$data['type'] = 1;
+				$data['title'] = 'Foto';
+				$data['content'] = $name;
+				$data['description'] = 'Toegevoegd op ' . date('d/m/Y');
+				$data['x'] = 100;
+				$data['y'] = 100;
+				$data['z'] = $z;
+
+				$result = $this->itemDAO->insertItem($data);
+				if(!empty($result)){
+					$_SESSION['info'] = 'Item toegevoegd!';
+					$this->redirect('index.php?page=view&id='.$_GET['id']);
+				} else {
+			        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
+			        // $errors = $this->pictureDAO->getValidationErrors($data);
+			    }
+				
+			}
+
+		}
+	}
+
+	private function getHighestZindex(){
+		$highestZ = $this->itemDAO->getHighestZIndexOnBoard($_GET['id']);
+		$newZ = $highestZ['z']+1;
+		return $newZ;
+	}
+
+	public function image(){
+		die("image die");
 	}
 }

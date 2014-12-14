@@ -19,6 +19,36 @@ class ItemDAO extends DAO {
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	public function getHighestZIndexOnBoard($id) {
+		$sql = "SELECT `z` FROM `wb_items` WHERE wb_items.board_id = :id ORDER BY `z` DESC LIMIT 1";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':id', $id);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	public function insertItem($data){
+		$errors = $this->getValidationErrors($data, 3);
+		if(empty($errors)){
+			$sql = "INSERT INTO `wb_items` (`board_id`, `user_id`, `type`, `title`, `content`, `description`, `x`, `y`, `z`)
+					VALUES (:board_id, :user_id, :type, :title, :content, :description, :x, :y, :z)";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(":board_id", $data["board_id"]);
+			$stmt->bindValue(":user_id", $data["user_id"]);
+			$stmt->bindValue(":type", $data["type"]);
+			$stmt->bindValue(":title", $data["title"]);
+			$stmt->bindValue(":content", $data["content"]);
+			$stmt->bindValue(":description", $data["description"]);
+			$stmt->bindValue(":x", $data["x"]);
+			$stmt->bindValue(":y", $data["y"]);
+			$stmt->bindValue(":z", $data["z"]);
+			if($stmt->execute()){
+				$lastInsertId = $this->pdo->lastInsertId();
+				return $this->selectItemById($lastInsertId);
+			}
+		}
+	}
+
 	public function updateContent($data){
 
 		$errors = $this->getValidationErrors($data, 1);
@@ -100,6 +130,11 @@ class ItemDAO extends DAO {
 				
 
 				break;
+
+
+				case 3:
+
+					break;
 		}
 
 		return $errors;

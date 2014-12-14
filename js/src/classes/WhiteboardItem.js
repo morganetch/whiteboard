@@ -63,7 +63,7 @@ module.exports = (function(){
 
 		window.removeEventListener('mousemove', this._mousemoveHandler);
 		window.removeEventListener('mouseup', this._mouseupHandler);
-	};
+	};x 
 
 	WhiteboardItem.prototype.editItemHandler = function(event) {
 		event.preventDefault();

@@ -1,28 +1,21 @@
 module.exports = (function(){
 
 	var WhiteboardItem = require('./WhiteboardItem');
+	var WhiteboardForm = require('./WhiteboardForm');
 
 	function WhiteboardApplication(el) {
 		this.el = el;
-		this.addPicture = el.querySelector('a[href="1"]');
-		this.addVideo = el.querySelector('a[href="2"]');
-		this.addText = el.querySelector('a[href="3"]');
-
 		this.items = this.el.querySelectorAll('.item');
 		this.whiteboardItems = [];
 		this.$itemsList = $(el).find('.holder');
-		
+
+		this.WhiteboardForm = new WhiteboardForm(this.el.querySelector('.buttons'));
 
 		for(var i = 0; i < this.items.length; i++){
 			this.addItemPreparer(this.items[i]);
 		}
 
 		$(this.items).remove();
-
-		$(this.addText).on('click', this.makeNewItem.bind(this));
-		$(this.addPicture).on('click', this.makeNewItem.bind(this));
-		$(this.addVideo).on('click', this.makeNewItem.bind(this));
-
 	}
 
 	WhiteboardApplication.prototype.addItemPreparer = function(article) {
@@ -69,37 +62,38 @@ module.exports = (function(){
 			type = event.target.getAttribute('href');
 		}
 
-		switch(parseInt(type)){
-			case 1:
-				title = 'Nieuwe foto';
-				content = 'uploads/No_image_available.png';
 
-				break;
+		// switch(parseInt(type)){
+		// 	case 1:
+		// 		title = 'Nieuwe foto';
+		// 		content = 'uploads/No_image_available.png';
 
-			case 2:
-				title = 'Nieuwe video';
-				content = '';
-				break;
+		// 		break;
 
-			case 3:
-				title = 'Nieuw tekstje';
-				content = 'Omschrijving van uw tekstje';
-				console.log("die");
-				break;
-		}
+		// 	case 2:
+		// 		title = 'Nieuwe video';
+		// 		content = '';
+		// 		break;
 
-		var data = {
-			left: (window.innerWidth/2)-140 +"px",
-			top: (window.innerHeight/2)-145 +"px",
-			id: 5,
-			type: type,
-			title: title,
-			description: 'Hier komt een korte omschrijving',
-			content: content,
-			new: true
-		};
+		// 	case 3:
+		// 		title = 'Nieuw tekstje';
+		// 		content = 'Omschrijving van uw tekstje';
+		// 		console.log("die");
+		// 		break;
+		// }
 
-		this.addItemHandler(data);
+		// var data = {
+		// 	left: (window.innerWidth/2)-140 +"px",
+		// 	top: (window.innerHeight/2)-145 +"px",
+		// 	id: 5,
+		// 	type: type,
+		// 	title: title,
+		// 	description: 'Hier komt een korte omschrijving',
+		// 	content: content,
+		// 	new: true
+		// };
+
+		// this.addItemHandler(data);
 	};
 
 	WhiteboardApplication.prototype.addItemHandler = function(data) {
