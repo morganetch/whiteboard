@@ -143,7 +143,6 @@ class BoardsController extends Controller {
 			}
 			echo json_encode(array('result' => false));
 			die();
-			//$this->redirect("index.php?page=view&id=" . $_POST['boardId']);
 		}
 	}
 
@@ -293,7 +292,6 @@ class BoardsController extends Controller {
 				$this->redirect('index.php?page=view&id='.$_GET['id']);
 			} else {
 		        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
-		        $errors = $this->pictureDAO->getValidationErrors($data);
 		    }
 		}
 	}
@@ -318,7 +316,6 @@ class BoardsController extends Controller {
 				$this->redirect('index.php?page=view&id='.$_GET['id']);
 			} else {
 		        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
-		        // $errors = $this->pictureDAO->getValidationErrors($data);
 		    }
 	}
 
@@ -433,32 +430,4 @@ class BoardsController extends Controller {
 	public function image(){
 		die("image die");
 	}
-
-	// public function deleteItem(){
-	// 	if($_POST){
-
-	// 		// if(!empty($_POST['id'])){
-	// 		// 	$errors['id'] = 'Gelieve id mee te delen';
-	// 		// }
-
-	// 		header('Content-Type: application/json');
-
-	// 		// if(!empty($errors)){
-	// 			$itemId = $_POST['id'];
-	// 			$delete = $this->itemDAO->deleteItem($itemId);
-	// 			echo json_encode(array('result' => true));
-	// 				die();
-
-			// 	if(!empty($delete)){
-			// 		echo json_encode(array('result' => true));
-			// 		die();
-			// 	}
-			// } else {
-			// 	$this->set('errors', $errors);
-			// }
-			// echo json_encode(array('result' => false));
-			// die();
-			//$this->redirect("index.php?page=view&id=" . $_POST['boardId']);
-	// 	}
-	// }
 }

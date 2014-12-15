@@ -61,43 +61,9 @@ module.exports = (function(){
 		} else {
 			type = event.target.getAttribute('href');
 		}
-
-
-		// switch(parseInt(type)){
-		// 	case 1:
-		// 		title = 'Nieuwe foto';
-		// 		content = 'uploads/No_image_available.png';
-
-		// 		break;
-
-		// 	case 2:
-		// 		title = 'Nieuwe video';
-		// 		content = '';
-		// 		break;
-
-		// 	case 3:
-		// 		title = 'Nieuw tekstje';
-		// 		content = 'Omschrijving van uw tekstje';
-		// 		console.log("die");
-		// 		break;
-		// }
-
-		// var data = {
-		// 	left: (window.innerWidth/2)-140 +"px",
-		// 	top: (window.innerHeight/2)-145 +"px",
-		// 	id: 5,
-		// 	type: type,
-		// 	title: title,
-		// 	description: 'Hier komt een korte omschrijving',
-		// 	content: content,
-		// 	new: true
-		// };
-
-		// this.addItemHandler(data);
 	};
 
 	WhiteboardApplication.prototype.addItemHandler = function(data) {
-		// console.log(data);
 		var item = WhiteboardItem.createItem(data);
 		bean.on(item, "delete", this.deleteItemHandler.bind(this));
 		this.whiteboardItems.push(data);
@@ -107,13 +73,6 @@ module.exports = (function(){
 	WhiteboardApplication.prototype.deleteItemHandler = function(item) {
 		this.whiteboardItems.splice(this.whiteboardItems.indexOf(item), 1);
 		console.log("spliced");
-	};
-
-	WhiteboardApplication.prototype.updateItems = function() {
-		
-		// for(var i = 0; i < this.items.length; i++){
-		// 	this.addItem(this.items[i]);
-		// }
 	};
 
 	return WhiteboardApplication;

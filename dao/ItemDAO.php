@@ -51,13 +51,10 @@ class ItemDAO extends DAO {
 	}
 
 	public function deleteItem($id){
-		// $errors = $this->getValidationErrors($data, 4);
-		// if(empty($errors)){
-			$sql = "DELETE FROM `wb_items` WHERE id = :id";
-			$stmt = $this->pdo->prepare($sql);
-			$stmt->bindValue(":id", $id);
-			return $stmt->execute();
-		// }
+		$sql = "DELETE FROM `wb_items` WHERE id = :id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(":id", $id);
+		return $stmt->execute();
 	}
 
 	public function updateTextItem($data){

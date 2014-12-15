@@ -44,7 +44,6 @@ class UsersController extends Controller {
 					$_SESSION['user'] = $user;
 					$_SESSION["info"] = "Registratie is gelukt, log je nu in";
 					$this->redirect("index.php");
-					//door redirect stopt hij hier met codes uit te voeren, als hij nog verder uitvoert = user is leeg, dus foutmelding ($_SESSION["errors"])
 				}
 			}
 			$_SESSION["error"] = "Registratie mislukt";

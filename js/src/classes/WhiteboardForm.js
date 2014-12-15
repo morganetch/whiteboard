@@ -21,7 +21,6 @@ module.exports = (function(){
 				var $submitbutton = $(this.el).find('input[value="image"]');
 				$submitbutton.click();
 
-
 				// $.post("index.php?page=image", { 
 				// 		left: (window.innerWidth/2)-140 +"px",
 				// 		top: (window.innerHeight/2)-145 +"px",
@@ -31,12 +30,7 @@ module.exports = (function(){
 				// 		content: content,
 				// 	})
 				//   	.done(function(data) {
-				//     // console.log(data);
-				//    	// if(data.result) {
-				//    	// 	voorbeeldJSONGet();
-				//    	// } else {
-
-				//    	// }
+				//     
 				//   });
 			}
 		}

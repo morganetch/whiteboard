@@ -29,7 +29,7 @@ class InviteDAO extends DAO {
 	}
 
 	public function insert($data){
-		$errors = $this->getValidationErrors($data, 1);
+		$errors = $this->getValidationErrors($data);
 		if(empty($errors)){
 			$sql = "INSERT INTO `wb_invites` (`board_id`, `user_id`)
 					VALUES (:board_id, :user_id)";
@@ -43,23 +43,16 @@ class InviteDAO extends DAO {
 		}
 	}
 
-	public function getValidationErrors($data, $type) {
+	public function getValidationErrors($data) {
 		
 		$errors = array();
 
-		switch($type){
+		if(empty($data['board_id'])){
+			$errors['board_id'] = 'Gelieve board id mee te geven';
+		}
 
-			case 1:
-
-				if(empty($data['board_id'])){
-					$errors['board_id'] = 'Gelieve board id mee te geven';
-				}
-
-				if(empty($data['user_id'])){
-					$errors['user_id'] = 'Gelieve user id mee te geven';
-				}
-
-				break;
+		if(empty($data['user_id'])){
+			$errors['user_id'] = 'Gelieve user id mee te geven';
 		}
 
 		return $errors;

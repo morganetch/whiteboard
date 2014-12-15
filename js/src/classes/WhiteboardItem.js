@@ -94,55 +94,6 @@ module.exports = (function(){
 
 		var template = Handlebars.compile( $('#edit-' + templateType + '-template').text());
 		this.$el.append( $(template(this.data)));
-
-		this.$form = this.$el.find('form[value="updateText"]');
-		this.$form.on('submit', this.formHandler.bind(this));
-
-		// this.$delete = this.$el.find('a');
-		// this.$delete.on('click', this.deleteClickHandler.bind(this));
-	};
-
-	WhiteboardItem.prototype.formHandler = function(event) {
-		// event.preventDefault();
-		// console.log("submit");
-
-		// this.form = this.el.querySelector('form');
-		// console.log(this.data.type);
-
-
-		// switch (this.type){
-		// 	case 1:
-
-		// 		break;
-
-		// 	case 2:
-
-		// 		break;
-
-		// 	case 3:
-
-		// 		// 
-
-
-
-		// 		break;
-		// }
-
-		// $.post( "index.php?page=edit", 
-				// 	{ 
-				// 		id: this.data.id,
-				// 		title: this.form.querySelector('input[name="title"]').value,
-				// 		content: this.form.querySelector('textarea[name="content"]').value,
-				// 		desc: this.form.querySelector('textarea[name="desc"]').value,
-				// 		boardId: boardId
-				// 	}).done(function(data) {
-				//     // console.log(data);
-				//    	// if(data.result) {
-				//    	// 	voorbeeldJSONGet();
-				//    	// } else {
-
-				//    	// }
-				//   	});
 	};
 
 
@@ -152,16 +103,10 @@ module.exports = (function(){
 		bean.fire(this, "delete", this);
 		console.log('clickhandler');
 		$.post("index.php?page=deleteitem", { 
-				id: this.data.id
-			})
-		  	.done(function(data) {
-		    // console.log(data);
-		   	// if(data.result) {
-		   	// 	voorbeeldJSONGet();
-		   	// } else {
-
-		   	// }
-		  });
+			id: this.data.id
+		})
+		.done(function(data) {    
+		});
 	};
 
 	WhiteboardItem.createItem = function(data){
@@ -169,7 +114,6 @@ module.exports = (function(){
 		var template = Handlebars.compile(source);
 		var html = template(data);
 		return new WhiteboardItem($(html), data);
-
 	};
 
 	WhiteboardItem.prototype.getHighestZ = function() {

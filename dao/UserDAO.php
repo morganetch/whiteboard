@@ -4,8 +4,7 @@ require_once WWW_ROOT . 'dao' . DS . 'DAO.php';
 class UserDAO extends DAO {
 
 	public function selectAll(){
-		$sql = "SELECT *
-				FROM `wb_users`";
+		$sql = "SELECT * FROM `wb_users`";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -22,9 +21,7 @@ class UserDAO extends DAO {
 	}
 
 	public function selectById($id){
-		$sql = "SELECT *
-				FROM `wb_users`
-				WHERE `id` = :id";
+		$sql = "SELECT * FROM `wb_users` WHERE `id` = :id";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(":id", $id);
 		$stmt->execute();
@@ -48,19 +45,20 @@ class UserDAO extends DAO {
 
 	public function getValidationErrors($data){
 		$errors = array();
+
 		if(empty($data["username"])){
 			$errors["username"] = "please fill in an username";
 		}
+
 		if(empty($data["password"])){
 			$errors["password"] = "please fill in a password";
 		}
+
 		return $errors;
 	}
 
 	public function selectByUsername($username){
-		$sql = "SELECT *
-				FROM `wb_users`
-				WHERE `username` = :username";
+		$sql = "SELECT * FROM `wb_users` WHERE `username` = :username";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue("username", $username);
 		$stmt->execute();
