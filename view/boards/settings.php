@@ -13,7 +13,7 @@
             </div>
         </form>
 
-            <h3>Ge&iuml;nviteerden</h3>
+            <h3>Gebruikers</h3>
             <ul>
                 <?php
                 if($invites){
@@ -21,7 +21,7 @@
                         echo "<li><span>" . $invite['username'] . "</span></li>";
                     }
                 } else {
-                    echo "<p>Er zijn geen ge&iuml;nviteerden</p>";
+                    echo "<p>U bent de enige gebruiker</p>";
                 }
                 ?>
             </ul>

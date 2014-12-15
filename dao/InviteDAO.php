@@ -19,6 +19,15 @@ class InviteDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function selectInviteByBoardIdAndUserId($board_id, $user_id){
+		$sql = "SELECT * FROM `wb_invites` WHERE `board_id` = :board_id AND `user_id` = :user_id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(":board_id", $board_id);
+		$stmt->bindValue(":user_id", $user_id);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
 	public function insert($data){
 		$errors = $this->getValidationErrors($data, 1);
 		if(empty($errors)){

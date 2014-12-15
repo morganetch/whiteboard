@@ -54,7 +54,6 @@ class BoardsController extends Controller {
 			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboards te zien';
 			$this->redirect('index.php');
 		} else {
-
 			if(!empty($_POST)){
 				if($_POST['action'] == 'new'){
 					$this->redirect('index.php?page=add');
@@ -63,10 +62,9 @@ class BoardsController extends Controller {
 			
 			$ownBoards = $this->boardDAO->selectBoardsByUserId($_SESSION['user']['id']);
 			$invitedBoards = $this->boardDAO->selectInvitedBoardsByUserId($_SESSION['user']['id']);
-
 		}
-			$this->set('ownBoards', $ownBoards);
-			$this->set('invitedBoards', $invitedBoards);
+		$this->set('ownBoards', $ownBoards);
+		$this->set('invitedBoards', $invitedBoards);
 	}
 
 	public function view() {
@@ -75,87 +73,41 @@ class BoardsController extends Controller {
 			$_SESSION['error'] = 'U moet ingelogd zijn voor uw whiteboard te zien';
 			$this->redirect('index.php');
 		} else {
-			$board = $this->boardDAO->selectBoardById($_GET['id']);
 
-			if(empty($board)){
-				$_SESSION['error'] = 'Ongeldig bord geselecteerd';
-				$this->redirect('index.php');
-			} else {
+			if($this->permission()){
+				$board = $this->boardDAO->selectBoardById($_GET['id']);
 				$items = $this->itemDAO->selectItemsByBoardId($_GET['id']);
-
 				if(!empty($_POST)){
 
-					// die("post");
-					if($_POST['action'] == 'image'){
-						$this->uploadImage();
-					} elseif ($_POST['action'] == 'video') {
-						$this->uploadVideo();
-					} elseif ($_POST['action'] == 'text') {
-						$this->makeText();
+					switch ($_POST['action']) {
+						case 'image':
+							$this->uploadImage();
+							break;
+
+						case 'video':
+							$this->uploadVideo();
+							break;
+
+						case 'text':
+							$this->makeText();
+							break;
+
+						case 'Verwijder':
+							$this->deleteItem($_POST);
+							break;
+
+						case 'Wijzig':
+							$this->editItem($_POST);
+							break;
 					}
-
-					if($_POST['action'] == 'Verwijder'){
-
-						$errors = $this->getValidationErrors($_POST, 1);
-
-						if(empty($errors)){
-							$delete = $this->itemDAO->deleteItem($_POST['id']);
-
-							if(!empty($delete)){
-								$this->redirect("index.php?page=view&id=" . $_GET['id']);
-							} else {
-								$_SESSION['error'] = 'Er is iets misgelopen bij het verwijderen.';
-							}
-						}
-
-					}
-
-		
-
-					if($_POST['action'] == 'Wijzig'){
-
-						if($_POST['type'] == 1 || $_POST['type'] == 2){
-
-							$errors = $this->getValidationErrors($_POST, 3);
-
-							if(empty($errors)){
-
-								$update = $this->itemDAO->updateDescription($_POST);
-
-								if(!empty($update)){
-
-									$this->redirect("index.php?page=view&id=" . $_GET['id']);
-								} else {
-									$this->set('errors', $errors);
-								}
-							}
-
-
-						} else {
-
-							$errors = $this->getValidationErrors($_POST, 2);
-
-							if(empty($errors)){
-								$update = $this->itemDAO->updateTextItem($_POST);
-
-								if(!empty($update)){
-									$this->redirect("index.php?page=view&id=" . $_GET['id']);
-								} else {
-									$this->set('errors', $errors);
-								}
-							}
-
-						}
-
-					}
-					
 				}
 				$this->set('board', $board);
 				$this->set('items', $items);
+			} else {
+				$_SESSION['error'] = 'Ongeldig bord geselecteerd';
+				$this->redirect('index.php');
 			}
-			
 		}
-
 	}
 
 	public function save(){
@@ -167,15 +119,12 @@ class BoardsController extends Controller {
 			if(!empty($_POST['id'])){
 				$errors['id'] = 'Gelieve id mee te delen';
 			}
-
 			if(!empty($_POST['x'])){
 				$errors['x'] = 'Gelieve x waarde mee te delen';
 			}
-
 			if(!empty($_POST['y'])){
 				$errors['y'] = 'Gelieve y waarde mee te delen';
 			}
-
 			if(!empty($_POST['z'])){
 				$errors['z'] = 'Gelieve z waarde mee te delen';
 			}
@@ -205,70 +154,31 @@ class BoardsController extends Controller {
 			$this->redirect('index.php');
 		} else {
 
-			$board = $this->boardDAO->selectBoardById($_GET['id']);
-			$invites = $this->inviteDAO->selectInvitesByBoardId($_GET['id']);
+			if($this->permission()){
+				$board = $this->boardDAO->selectBoardById($_GET['id']);
+				$invites = $this->inviteDAO->selectInvitesByBoardId($_GET['id']);
 
-			if(empty($board)){
+				if(!empty($_GET['q'])){
+					$this->set('users', $this->userDAO->searchUsers($_GET['q'], $_SESSION['user']['id'], $_GET['id']));
+				}
+
+				if(!empty($_POST)){
+					switch ($_POST['action']) {
+						case 'Wijzigen':
+							$this->changeBoardTitle($_POST);
+							break;
+
+						case 'Toevoegen':
+							$this->addInvite($_POST);
+							break;
+					}
+				}
+			} else {
 				$_SESSION['error'] = 'Ongeldig bord geselecteerd';
 				$this->redirect('index.php');
-			}
+			}			
 		}
 
-		//live search
-		if(!empty($_GET['q'])){
-			$this->set('users', $this->userDAO->searchUsers($_GET['q'], $_SESSION['user']['id'], $_GET['id']));
-		}
-		
-		if(!empty($_POST)){
-
-			if($_POST['action'] == 'Wijzigen'){
-				$errors = array();
-
-				if(empty($_POST["name"])){
-					$errors["name"] = "Geef een naam in aub";
-				}
-				
-				if(empty($errors)){
-					$whiteboard = $this->boardDAO->update(array(
-						"name"=>$_POST["name"],
-						"id"=>$_GET["id"]
-					));
-
-					if(!empty($whiteboard)){
-						$_SESSION["info"] = "Je hebt een whiteboard aangepast";
-						$this->redirect("index.php?page=view&id=".$whiteboard["id"]);
-					} else {
-						$_SESSION["error"] = "Er is iets misgelopen, vul de gegevens in aub";
-						$this->set("errors", $errors);
-					}
-				}
-			} elseif ($_POST['action'] == 'Toevoegen') {
-
-				$ids = [];
-
-				foreach ($_POST as $key => $value) {
-					$find = explode('-', $key);
-					if($find[0] == 'user'){
-						array_push($ids, $value);
-					}
-				}
-
-				if(!empty($ids)){
-					foreach ($ids as $id) {
-						$add = $this->inviteDAO->insert(array('user_id'=>$id, 'board_id' => $_GET['id']));
-
-						if(!empty($whiteboard)){
-							$_SESSION["info"] = "Je hebt een user toegevoegd";
-						} else {
-							$_SESSION["error"] = "Er is iets misgelopen";
-						}
-
-					}
-					$this->redirect("index.php?page=settings&id=".$_GET["id"]);
-				}
-
-			}
-		}
 		$this->set('board', $board);
 		$this->set('invites', $invites);
 	}
@@ -276,35 +186,33 @@ class BoardsController extends Controller {
 	private function getValidationErrors($data, $type){
 
 		$errors = [];
-
 		switch($type){
 
 			case 1:
-
 				if(empty($data['id'])){
 					$errors['id'] = 'Gelieve id mee te geven';
 				}
-
 				break;
 
 			case 2:
-
-				if(empty($_POST['content'])){
+				if(empty($data['content'])){
 					$errors['content'] = 'Gelieve tekst in te vullen';
 				}
-
-				if(empty($_POST['id'])){
+				if(empty($data['id'])){
 					$errors['id'] = 'Gelieve een id in te vullen';
 				}
-
 				break;
 
 			case 3:
-
-				if(empty($_POST['id'])){
+				if(empty($data['id'])){
 					$errors['id'] = 'Gelieve een id in te vullen';
 				}
+				break;
 
+			case 4:
+				if(empty($data['name'])){
+					$errors['name'] = "Geef een naam in aub";
+				}
 				break;
 		}
 
@@ -316,11 +224,9 @@ class BoardsController extends Controller {
 		if(!empty($_FILES['image']['error'])) {
 			$_SESSION['error'] = 'Er is een probleem met uw foto';
 		} else {
-
 			if(empty(getimagesize($_FILES['image']['tmp_name']))){
 				$_SESSION['error'] = 'Dit is geen foto';
 			} else {
-
 				$sourceFile = $_FILES['image']['tmp_name'];
 				$destFile = WWW_ROOT . 'uploads' . DS . $_FILES['image']['name'];
 				move_uploaded_file($sourceFile, $destFile);
@@ -387,17 +293,14 @@ class BoardsController extends Controller {
 				$this->redirect('index.php?page=view&id='.$_GET['id']);
 			} else {
 		        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
-		        // $errors = $this->pictureDAO->getValidationErrors($data);
+		        $errors = $this->pictureDAO->getValidationErrors($data);
 		    }
-
 		}
-
 	}
 
 	private function makeText(){
 
 			$z = $this->getHighestZIndex();
-
 			$data = array();
 			$data['user_id'] = $_SESSION['user']['id'];
 			$data['board_id'] = $_GET['id'];
@@ -417,9 +320,108 @@ class BoardsController extends Controller {
 		        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
 		        // $errors = $this->pictureDAO->getValidationErrors($data);
 		    }
+	}
 
-		
+	private function deleteItem($data){
 
+		$errors = $this->getValidationErrors($data, 1);
+
+		if(empty($errors)){
+			$delete = $this->itemDAO->deleteItem($data['id']);
+
+			if(!empty($delete)){
+				$this->redirect("index.php?page=view&id=" . $_GET['id']);
+			} else {
+				$_SESSION['error'] = 'Er is iets misgelopen bij het verwijderen.';
+			}
+		}
+
+	}
+
+	private function editItem($data){
+
+		if($data['type'] == 1 || $data['type'] == 2){
+			$errors = $this->getValidationErrors($data, 3);
+
+			if(empty($errors)){
+
+				$update = $this->itemDAO->updateDescription($data);
+				if(!empty($update)){
+					$this->redirect("index.php?page=view&id=" . $_GET['id']);
+				} else {
+					$this->set('errors', $errors);
+				}
+			}
+
+		} else {
+			$errors = $this->getValidationErrors($data, 2);
+
+			if(empty($errors)){
+
+				$update = $this->itemDAO->updateTextItem($data);
+				if(!empty($update)){
+					$this->redirect("index.php?page=view&id=" . $_GET['id']);
+				} else {
+					$this->set('errors', $errors);
+				}
+			}
+		}
+	}
+
+	private function changeBoardTitle($data){
+
+		$errors = $this->getValidationErrors($data, 4);
+
+		if(empty($errors)){
+			$whiteboard = $this->boardDAO->update(array(
+				"name"=>$_POST["name"],
+				"id"=>$_GET["id"]
+			));
+
+			if(!empty($whiteboard)){
+				$_SESSION["info"] = "Je hebt een whiteboard aangepast";
+				$this->redirect("index.php?page=view&id=".$whiteboard["id"]);
+			}
+		} else {
+			$_SESSION["error"] = "Er is iets misgelopen, vul de gegevens in aub";
+			$this->set("errors", $errors);
+		}
+	}
+
+	private function addInvite($data){
+		$ids = [];
+
+		foreach ($data as $key => $value) {
+			$find = explode('-', $key);
+			if($find[0] == 'user'){
+				array_push($ids, $value);
+			}
+		}
+
+		if(!empty($ids)){
+			foreach ($ids as $id) {
+				$add = $this->inviteDAO->insert(array('user_id'=>$id, 'board_id' => $_GET['id']));
+
+				if(!empty($whiteboard)){
+					$_SESSION["info"] = "Je hebt een user toegevoegd";
+				} else {
+					$_SESSION["error"] = "Er is iets misgelopen";
+				}
+			}
+			$this->redirect("index.php?page=settings&id=".$_GET["id"]);
+		}
+	}
+
+	private function permission(){
+		$board = $this->boardDAO->selectBoardById($_GET['id']);
+		$checkOwnBoard = $this->boardDAO->selectBoardByIdAndUserId($_GET['id'], $_SESSION['user']['id']);
+		$checkInvitedBoard = $this->inviteDAO->selectInviteByBoardIdAndUserId($_GET['id'], $_SESSION['user']['id']);
+
+		if($board && (!empty($checkOwnBoard)||!empty($checkInvitedBoard))){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private function getHighestZindex(){
@@ -432,20 +434,20 @@ class BoardsController extends Controller {
 		die("image die");
 	}
 
-	public function deleteItem(){
-		if($_POST){
+	// public function deleteItem(){
+	// 	if($_POST){
 
-			// if(!empty($_POST['id'])){
-			// 	$errors['id'] = 'Gelieve id mee te delen';
-			// }
+	// 		// if(!empty($_POST['id'])){
+	// 		// 	$errors['id'] = 'Gelieve id mee te delen';
+	// 		// }
 
-			header('Content-Type: application/json');
+	// 		header('Content-Type: application/json');
 
-			// if(!empty($errors)){
-				$itemId = $_POST['id'];
-				$delete = $this->itemDAO->deleteItem($itemId);
-				echo json_encode(array('result' => true));
-					die();
+	// 		// if(!empty($errors)){
+	// 			$itemId = $_POST['id'];
+	// 			$delete = $this->itemDAO->deleteItem($itemId);
+	// 			echo json_encode(array('result' => true));
+	// 				die();
 
 			// 	if(!empty($delete)){
 			// 		echo json_encode(array('result' => true));
@@ -457,6 +459,6 @@ class BoardsController extends Controller {
 			// echo json_encode(array('result' => false));
 			// die();
 			//$this->redirect("index.php?page=view&id=" . $_POST['boardId']);
-		}
-	}
+	// 	}
+	// }
 }

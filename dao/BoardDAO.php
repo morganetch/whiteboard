@@ -19,6 +19,17 @@ class BoardDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function selectBoardByIdAndUserId($board_id, $user_id) {
+		$sql = "SELECT * FROM `wb_boards` WHERE wb_boards.user_id = :user_id AND wb_boards.id = :board_id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':board_id', $board_id);
+		$stmt->bindValue(':user_id', $user_id);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	
+
 	public function selectInvitedBoardsByUserId($id) {
 		$sql = "SELECT * FROM `wb_boards` LEFT JOIN `wb_invites` ON wb_boards.id = wb_invites.board_id WHERE wb_invites.user_id = :id";
 		$stmt = $this->pdo->prepare($sql);
