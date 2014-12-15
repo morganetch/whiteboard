@@ -3,13 +3,12 @@
 		<div class="settings">
 			<a href="index.php?page=overview"><img src="img/close.png" alt="close"></a>
 			<a href="index.php?page=settings&id=<?php echo $_GET['id']; ?>"><img src="img/settings.png" alt="settings"></a>
-			<a href="save"><img src="img/save.png" alt="save"></a>
 		</div>
 		<div class="name"><?php echo $board['name']; ?></div>
 		<div class="account">Ingelogd als <?php echo $_SESSION['user']['username'];?></div>
 	</header>
 	<section class="buttons">
-		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post" enctype="multipart/form-data">
+		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post" enctype="multipart/form-data" class="add-image">
 			<label for="image-upload">
 				<input type="file" id="image-upload" name="image" class="hidden" accept="image/x-png, image/gif, image/jpeg">	
 			</label>
@@ -23,7 +22,7 @@
 			
 			<input type="submit" name="action" value="video" class="hidden">
 		</form>
-		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post">
+		<form action="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>" method="post" class="add-text">
 			<input type="submit" name="action" value="text">
 		</form>
 	</section>

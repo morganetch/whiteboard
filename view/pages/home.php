@@ -4,15 +4,15 @@
     		<h1>Welkom</h1>
     	</header>
     	<?php if(empty($_SESSION["user"])){ ?>
-    	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi semper nisl vitae libero viverra, ut eleifend tellus facilisis. Pellentesque at dignissim lorem. Phasellus hendrerit vitae lectus vel feugiat.</p>
-    	<div class="knop">
-    		<a href="index.php?page=register">Registreren</a>
-    	</div>
+    	<p>Maak zelf een online whiteboard met jouw vrienden.
+            Wil jij ook gebruik maken van onze online whiteboards?
+            Registreer je nu, log je nadien in en ga aan de slag!</p>
+    	<a class="knop" href="index.php?page=register">Registreren</a>
     	<?php }else{ ?>
-    		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi semper nisl vitae libero viverra, ut eleifend tellus facilisis. Pellentesque at dignissim lorem. Phasellus hendrerit vitae lectus vel feugiat.</p>
-    	<div class="knop">
-    		<a href="index.php?page=overview">Start</a>
-    	</div>
+    		<p>Nu je zelf een account hebt aangemaakt kan je jouw eigen whiteboards aanmaken en vrienden toevoegen. 
+            Jullie kunnen er samen aan werken. Je kan items toevoegen, 
+            wijzigen en verwijderen.</p>
+    	<a class="knop start" href="index.php?page=overview">Start</a>
     	<?php } ?>
     </article>
 </section>
