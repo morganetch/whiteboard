@@ -35,8 +35,8 @@ module.exports = (function(){
 		var height = this.$el.css('height').split('px')[0];
 		var right = parseInt(left) + parseInt(width);
 		var bottom = parseInt(top) + parseInt(height);
-		var windowWidth = window.innerWidth + 'px'
-		var windowHeight = window.innerHeight + 'px'
+		var windowWidth = window.innerWidth + 'px';
+		var windowHeight = window.innerHeight + 'px';
 
 		if(top < 40){
 			this.$el.css('top', '40px');
@@ -78,7 +78,7 @@ module.exports = (function(){
 
 		window.removeEventListener('mousemove', this._mousemoveHandler);
 		window.removeEventListener('mouseup', this._mouseupHandler);
-	};x 
+	};
 
 	WhiteboardItem.prototype.editItemHandler = function(event) {
 		event.preventDefault();

@@ -22,7 +22,7 @@ module.exports = (function(){
 			
 			var resultDiv = document.querySelector('.result');
 			resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);
-		}
+		};
 		req.open('get', this.searchForm.getAttribute('action') + '&q=' + this.searchInput.value, true);
 		req.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
 		req.send();
