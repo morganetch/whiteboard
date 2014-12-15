@@ -150,6 +150,7 @@ body {
 		}
 
 		label[for='image-upload'] {
+			cursor: pointer;
 			background: url('../img/picture.png') no-repeat;
 			background-position: center;
 			display: block;
@@ -159,6 +160,7 @@ body {
 		}
 
 		label[for='video-upload'] {
+			cursor: pointer;
 			background: url('../img/video.png') no-repeat;
 			background-position: center;
 			display: block;
@@ -171,6 +173,7 @@ body {
 		}
 
 		input[value='text'] {
+			cursor: pointer;
 			background: url('../img/balloon.png') no-repeat;
 			background-position: center;
 			display: block;
@@ -190,19 +193,19 @@ body {
 		}
 	}
 
-	a[href="picture"] {
-		border-radius: 10px 0px 0px 10px;
-		&:hover {
-			background-color: #E75C5C;
-		}
-	}
+	// a[href="picture"] {
+	// 	border-radius: 10px 0px 0px 10px;
+	// 	&:hover {
+	// 		background-color: #E75C5C;
+	// 	}
+	// }
 
-	a[href="text"] {
-		border-radius: 0px 10px 10px 0px;
-		&:hover {
-			background-color: #6EC0D3;
-		}
-	}
+	// a[href="text"] {
+	// 	border-radius: 0px 10px 10px 0px;
+	// 	&:hover {
+	// 		background-color: #6EC0D3;
+	// 	}
+	// }
 }
 
 .holder {
@@ -212,7 +215,7 @@ body {
 		display: block;
 		position: absolute;
 		width: 280px;
-		height: 290px;
+		min-height: 225px;
 		overflow: scroll;
 		background-color: #fff;
 		@include shadow(0px, 0px, 25px, 0px, rgba(0,0,0,0.4));
@@ -276,7 +279,7 @@ body {
 		}
 
 		textarea[name="content"] {
-			height: 100px;
+			height: 75px;
 			font-size: 0.9em;
 		}
 

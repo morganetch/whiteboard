@@ -28,7 +28,8 @@ class ItemDAO extends DAO {
 	}
 
 	public function insertItem($data){
-		$errors = $this->getValidationErrors($data, 3);
+
+		$errors = $this->getValidationErrors($data, 4);
 		if(empty($errors)){
 			$sql = "INSERT INTO `wb_items` (`board_id`, `user_id`, `type`, `title`, `content`, `description`, `x`, `y`, `z`)
 					VALUES (:board_id, :user_id, :type, :title, :content, :description, :x, :y, :z)";
@@ -59,7 +60,7 @@ class ItemDAO extends DAO {
 		// }
 	}
 
-	public function updateContent($data){
+	public function updateTextItem($data){
 
 		$errors = $this->getValidationErrors($data, 1);
 
@@ -71,8 +72,24 @@ class ItemDAO extends DAO {
 			$stmt->bindValue(':desc', $data['desc']);
 			$stmt->bindValue(':id', $data['id']);
 			if($stmt->execute()) {
-				$selectId=$this->pdo->lastInsertId();
-				return $this->selectItemById($selectId);
+				return $this->selectItemById($data['id']);
+			}
+		}
+		return false;
+	}
+
+	public function updateDescription($data){
+
+		$errors = $this->getValidationErrors($data, 3);
+
+		if(empty($errors)) {
+			$sql = "UPDATE `wb_items` SET `title` = :title, `description`= :desc WHERE `id` = :id";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(':title', $data['title']);
+			$stmt->bindValue(':desc', $data['desc']);
+			$stmt->bindValue(':id', $data['id']);
+			if($stmt->execute()) {
+				return $this->selectItemById($data['id']);
 			}
 		}
 		return false;
@@ -102,16 +119,8 @@ class ItemDAO extends DAO {
 
 			case 1:
 
-				if(empty($data['title'])){
-					$errors['title'] = 'Gelieve een titel in te vullen';
-				}
-
 				if(empty($data['content'])){
 					$errors['content'] = 'Gelieve tekst in te vullen';
-				}
-
-				if(empty($data['desc'])){
-					$errors['desc'] = 'Gelieve een omschrijving in te vullen';
 				}
 
 				if(empty($data['id'])){
@@ -144,12 +153,50 @@ class ItemDAO extends DAO {
 
 				case 3:
 
+					if(empty($data['id'])){
+						$errors['id'] = 'Gelieve een id in te vullen';
+					}
+
 					break;
 
 				case 4:
-					if(!isset($data['id'])){
-						$errors['id'] = "Gelieve id in te vullen";
+
+					if(empty($data['board_id'])) {
+						$errors['board_id'] = "Gelieve board_id in te vullen";
 					}
+
+					if(empty($data['user_id'])) {
+						$errors['user_id'] = "Gelieve user_id waarde in te vullen";
+					}
+
+					if(empty($data['type'])) {
+						$errors['type'] = "Gelieve type waarde in te vullen";
+					}
+
+					if(empty($data['title'])) {
+						$errors['title'] = "Gelieve title waarde in te vullen";
+					}
+
+					if(empty($data['content'])) {
+						$errors['content'] = "Gelieve content waarde in te vullen";
+					}
+
+					if(empty($data['description'])) {
+						$errors['description'] = "Gelieve description waarde in te vullen";
+					}
+
+					if(!isset($data['x'])) {
+						$errors['x'] = "Gelieve x waarde in te vullen";
+					}
+
+					if(!isset($data['y'])) {
+						$errors['y'] = "Gelieve y waarde in te vullen";
+					}
+
+					if(!isset($data['z'])) {
+						$errors['z'] = "Gelieve z waarde in te vullen";
+					}
+
 					break;
 		}
 

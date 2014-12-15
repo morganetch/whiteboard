@@ -7,12 +7,6 @@ module.exports = (function(){
 		this.$section = this.$el.find('section');
 		this.data = data;
 
-		// if(this.data.new){
-		// 	console.log(this.$el.find('img[alt="settings"]'));
-		// 	this.$el.find('img[alt="settings"]').trigger('click');
-		// 	console.log(this.$el.find('img[alt="settings"]'));
-		// }
-
 		this.$editButton.on('click', this.editItemHandler.bind(this));
 		this.$dragBar.on('mousedown', this.mousedownHandler.bind(this));
 	}
@@ -68,55 +62,66 @@ module.exports = (function(){
 	WhiteboardItem.prototype.editItemHandler = function(event) {
 		event.preventDefault();
 
+		var templateType;
+		if(this.data.type == 1 || this.data.type == 2){
+			templateType = 1;
+		} else {
+			templateType = 2;
+		}
+
 		this.$section.addClass('hidden');
 
-		var template = Handlebars.compile( $('#edit-' + this.data.type + '-template').text());
+		var template = Handlebars.compile( $('#edit-' + templateType + '-template').text());
 		this.$el.append( $(template(this.data)));
 
-		this.$submit = this.$el.find('input[type="submit"]');
-		this.$submit.on('submit', this.formHandler.bind(this));
+		this.$form = this.$el.find('form[value="updateText"]');
+		this.$form.on('submit', this.formHandler.bind(this));
 
-		this.$delete = this.$el.find('a');
-		this.$delete.on('click', this.deleteClickHandler.bind(this));
+		// this.$delete = this.$el.find('a');
+		// this.$delete.on('click', this.deleteClickHandler.bind(this));
 	};
 
 	WhiteboardItem.prototype.formHandler = function(event) {
 		// event.preventDefault();
-		this.form = this.el.querySelector('form');
-		console.log(this.type);
+		// console.log("submit");
+
+		// this.form = this.el.querySelector('form');
+		// console.log(this.data.type);
 
 
-		switch (this.type){
-			case 1:
+		// switch (this.type){
+		// 	case 1:
 
-				break;
+		// 		break;
 
-			case 2:
+		// 	case 2:
 
-				break;
+		// 		break;
 
-			case 3:
+		// 	case 3:
 
-				$.post( "index.php?page=edit", 
-					{ 
-						id: this.data.id,
-						title: this.form.querySelector('input[name="title"]').value,
-						content: this.form.querySelector('textarea[name="content"]').value,
-						desc: this.form.querySelector('textarea[name="desc"]').value,
-						boardId: boardId
-					}).done(function(data) {
-				    // console.log(data);
-				   	// if(data.result) {
-				   	// 	voorbeeldJSONGet();
-				   	// } else {
-
-				   	// }
-				  	});
+		// 		// 
 
 
 
-				break;
-		}
+		// 		break;
+		// }
+
+		// $.post( "index.php?page=edit", 
+				// 	{ 
+				// 		id: this.data.id,
+				// 		title: this.form.querySelector('input[name="title"]').value,
+				// 		content: this.form.querySelector('textarea[name="content"]').value,
+				// 		desc: this.form.querySelector('textarea[name="desc"]').value,
+				// 		boardId: boardId
+				// 	}).done(function(data) {
+				//     // console.log(data);
+				//    	// if(data.result) {
+				//    	// 	voorbeeldJSONGet();
+				//    	// } else {
+
+				//    	// }
+				//   	});
 	};
 
 

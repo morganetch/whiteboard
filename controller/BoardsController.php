@@ -114,48 +114,37 @@ class BoardsController extends Controller {
 
 					if($_POST['action'] == 'Wijzig'){
 
-						switch ($_POST['type']) {
-							case 1:
+						if($_POST['type'] == 1 || $_POST['type'] == 2){
 
+							$errors = $this->getValidationErrors($_POST, 3);
 
-								
-								break;
-							
-							case 2:
-								
-								break;
+							if(empty($errors)){
 
-							case 3:
+								$update = $this->itemDAO->updateDescription($_POST);
 
-								$errors = [];
+								if(!empty($update)){
 
-								if(empty($_POST['title'])){
-									$errors['title'] = 'Gelieve een titel in te vullen';
+									$this->redirect("index.php?page=view&id=" . $_GET['id']);
+								} else {
+									$this->set('errors', $errors);
 								}
+							}
 
-								if(empty($_POST['content'])){
-									$errors['content'] = 'Gelieve tekst in te vullen';
+
+						} else {
+
+							$errors = $this->getValidationErrors($_POST, 2);
+
+							if(empty($errors)){
+								$update = $this->itemDAO->updateTextItem($_POST);
+
+								if(!empty($update)){
+									$this->redirect("index.php?page=view&id=" . $_GET['id']);
+								} else {
+									$this->set('errors', $errors);
 								}
+							}
 
-								if(empty($_POST['desc'])){
-									$errors['desc'] = 'Gelieve een omschrijving in te vullen';
-								}
-
-								if(empty($_POST['id'])){
-									$errors['id'] = 'Gelieve een id in te vullen';
-								}
-
-								if(empty($errors)){
-									$update = $this->itemDAO->updateContent($_POST);
-
-									if(!empty($update)){
-										$this->redirect("index.php?page=view&id=" . $_GET['id']);
-									} else {
-										$this->set('errors', $errors);
-									}
-								}
-
-								break;
 						}
 
 					}
@@ -297,6 +286,26 @@ class BoardsController extends Controller {
 				}
 
 				break;
+
+			case 2:
+
+				if(empty($_POST['content'])){
+					$errors['content'] = 'Gelieve tekst in te vullen';
+				}
+
+				if(empty($_POST['id'])){
+					$errors['id'] = 'Gelieve een id in te vullen';
+				}
+
+				break;
+
+			case 3:
+
+				if(empty($_POST['id'])){
+					$errors['id'] = 'Gelieve een id in te vullen';
+				}
+
+				break;
 		}
 
 		return $errors;
@@ -307,9 +316,11 @@ class BoardsController extends Controller {
 		if(!empty($_FILES['image']['error'])) {
 			$_SESSION['error'] = 'Er is een probleem met uw foto';
 		} else {
+
 			if(empty(getimagesize($_FILES['image']['tmp_name']))){
 				$_SESSION['error'] = 'Dit is geen foto';
 			} else {
+
 				$sourceFile = $_FILES['image']['tmp_name'];
 				$destFile = WWW_ROOT . 'uploads' . DS . $_FILES['image']['name'];
 				move_uploaded_file($sourceFile, $destFile);
@@ -339,7 +350,7 @@ class BoardsController extends Controller {
 					$this->redirect('index.php?page=view&id='.$_GET['id']);
 				} else {
 			        $_SESSION['error'] = 'Er is iets fout gelopen bij het uploaden van je foto.';
-			        // $errors = $this->pictureDAO->getValidationErrors($data);
+			        $errors = $this->itemDAO->getValidationErrors($data, 4);
 			    }
 				
 			}

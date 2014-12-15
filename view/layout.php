@@ -67,10 +67,9 @@
     </article>
 </script>
 
-<script type="text/template" id="edit-1-template">
-    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST" name="action" value="update">
+ <script type="text/template" id="edit-1-template">
+    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST">
         <input type="text" name="title" value="{{title}}">
-        <input type="file" name="image">
         <textarea name="desc">{{description}}</textarea>
         <input type="number" name="id" class="hidden" value="{{id}}">
         <input type="number" name="type" class="hidden" value="{{type}}">
@@ -79,23 +78,13 @@
     </form>
  </script>
 
- <script type="text/template" id="edit-2-template">
-    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST" name="action" value="update">
-        <input type="text" name="title" value="{{title}}">
-        <input type="file" name="image">
-        <textarea name="desc">{{description}}</textarea>
-        <input type="number" name="id" class="hidden" value="{{id}}">
-        <input type="submit" name="action" value="Wijzig">
-        <input type="submit" name="action" value="Verwijder">
-    </form>
- </script>
-
-<script type="text/template" id="edit-3-template">
-    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST" name="action" value="updateText">
+<script type="text/template" id="edit-2-template">
+    <form action="index.php?page=view&amp;id=<?php echo $_GET['id'];?>" method="POST">
         <input type="text" name="title" value="{{title}}">
         <textarea name="content">{{content}}</textarea>
         <textarea name="desc">{{description}}</textarea>
         <input type="number" name="id" class="hidden" value="{{id}}">
+        <input type="number" name="type" class="hidden" value="{{type}}">
         <input type="submit" name="action" value="Wijzig">
         <input type="submit" name="action" value="Verwijder">
     </form>
