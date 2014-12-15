@@ -477,6 +477,11 @@ body {
 			margin-bottom: 30px;
 			text-align: center;
 		}
+
+		h2{
+			font-size: 1.8em;
+			margin-bottom: 20px;
+		}
 /*
 		p{
 			color: white;
@@ -508,14 +513,14 @@ body {
 }
 	// boards
 .boards{
-	width: 400px;
+	width: 500px;
 	margin: 0 auto;
 	height: 100%;
 	padding-top: 40px;
 
 	.eigen-boards{
 		float: left;
-		width: 150px;
+		width: 220px;
 
 		li{
 			color: #555555;
@@ -549,7 +554,7 @@ body {
 
 	.invited-boards{
 		float: right;
-		width: 150px;
+		width: 220px;
 
 		li{
 			color: #555555;
@@ -637,5 +642,16 @@ body {
 
 	ul {
 		margin-top: 10px;
+	}
+
+	a {
+		display: block;
+		margin-top: 10px;
+		height: 20px;
+		width: 110px;
+		text-decoration: none;
+		color: white;
+		background-color: #555555;
+		padding: 10px 0 0 12px;
 	}
 }

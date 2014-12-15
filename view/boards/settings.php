@@ -53,6 +53,8 @@
             </div>
             
         </form>
+
+        <a href="index.php?page=view&amp;id=<?php echo $_GET['id']; ?>">Terug naar board</a>
         
     </article>
 </section>

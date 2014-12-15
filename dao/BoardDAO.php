@@ -20,7 +20,7 @@ class BoardDAO extends DAO {
 	}
 
 	public function selectInvitedBoardsByUserId($id) {
-		$sql = "SELECT * FROM `wb_boards` WHERE wb_boards.user_id = :id";
+		$sql = "SELECT * FROM `wb_boards` LEFT JOIN `wb_invites` ON wb_boards.id = wb_invites.board_id WHERE wb_invites.user_id = :id";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':id', $id);
 		$stmt->execute();
