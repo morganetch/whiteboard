@@ -3,9 +3,9 @@
     	<header>
     		<h1>Overzicht whiteboards</h1>
     	</header>
-    	<div class="knop">
-    		<a href="index.php?page=add">Nieuwe whiteboard</a>
-    	</div>
+
+		<a href="index.php?page=add" class="knop">Nieuw whiteboard</a>
+
     	<div class="boards">
     		<div class="eigen-boards">
     			<h2>Eigen boards</h2>

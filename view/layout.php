@@ -26,10 +26,11 @@
             ?>
                 <p class="navbar-right">Ingelogd als <?php echo $_SESSION['user']['username'];?> - <a href="index.php?page=logout" class="navbar-link">Uitloggen</a></p>
             <?php } ?>
-            </ul>
-        </nav>
-<?php } ?>
-	<?php echo $content; ?>
+        </ul>
+    </nav>
+<?php 
+} ?>
+    <?php echo $content; ?>
 
 <script type="text/template" id="1-template">
     <article class="item picture" style="top: {{top}}; left: {{left}}; z-index: {{z}}" id="{{id}}">
