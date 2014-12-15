@@ -3,6 +3,7 @@ require_once WWW_ROOT . 'controller' . DS . 'Controller.php';
 require_once WWW_ROOT . 'dao' . DS . 'BoardDAO.php';
 require_once WWW_ROOT . 'dao' . DS . 'ItemDAO.php';
 require_once WWW_ROOT . 'dao' . DS . 'InviteDAO.php';
+require_once WWW_ROOT . 'dao' . DS . 'UserDAO.php';
 
 require_once WWW_ROOT . 'php-image-resize' . DS . 'ImageResize.php';
 
@@ -11,11 +12,13 @@ class BoardsController extends Controller {
 	private $boardDAO;
 	private $itemDAO;
 	private $inviteDAO;
+	private $userDAO;
 
 	function __construct() {
 		$this->boardDAO = new BoardDAO();
 		$this->itemDAO = new ItemDAO();
 		$this->inviteDAO = new InviteDAO();
+		$this->userDAO = new UserDAO();
 	}
 
 	public function add() {
@@ -221,28 +224,61 @@ class BoardsController extends Controller {
 				$this->redirect('index.php');
 			}
 		}
+
+		//live search
+		if(!empty($_GET['q'])){
+			$this->set('users', $this->userDAO->searchUsers($_GET['q']));
+		}
 		
 		if(!empty($_POST)){
-			$errors = array();
 
-			if(empty($_POST["name"])){
-				$errors["name"] = "Geef een naam in aub";
-			}
-			
-			if(empty($errors)){
-				$whiteboard = $this->boardDAO->update(array(
-					"name"=>$_POST["name"],
-					"id"=>$_GET["id"]
-				));
+			if($_POST['action'] == 'Wijzigen'){
+				$errors = array();
 
-				if(!empty($whiteboard)){
-					$_SESSION["info"] = "Je hebt een whiteboard aangepast";
-					$this->redirect("index.php?page=view&id=".$whiteboard["id"]);
+				if(empty($_POST["name"])){
+					$errors["name"] = "Geef een naam in aub";
 				}
-			}
+				
+				if(empty($errors)){
+					$whiteboard = $this->boardDAO->update(array(
+						"name"=>$_POST["name"],
+						"id"=>$_GET["id"]
+					));
 
-			$_SESSION["error"] = "Er is iets misgelopen, vul de gegevens in aub";
-			$this->set("errors", $errors);
+					if(!empty($whiteboard)){
+						$_SESSION["info"] = "Je hebt een whiteboard aangepast";
+						$this->redirect("index.php?page=view&id=".$whiteboard["id"]);
+					} else {
+						$_SESSION["error"] = "Er is iets misgelopen, vul de gegevens in aub";
+						$this->set("errors", $errors);
+					}
+				}
+			} elseif ($_POST['action'] == 'Toevoegen') {
+
+				$ids = [];
+
+				foreach ($_POST as $key => $value) {
+					$find = explode('-', $key);
+					if($find[0] == 'user'){
+						array_push($ids, $value);
+					}
+				}
+
+				if(!empty($ids)){
+					foreach ($ids as $id) {
+						$add = $this->inviteDAO->insert(array('user_id'=>$id, 'board_id' => $_GET['id']));
+
+						if(!empty($whiteboard)){
+							$_SESSION["info"] = "Je hebt een user toegevoegd";
+						} else {
+							$_SESSION["error"] = "Er is iets misgelopen";
+						}
+
+					}
+					$this->redirect("index.php?page=settings&id=".$_GET["id"]);
+				}
+
+			}
 		}
 		$this->set('board', $board);
 		$this->set('invites', $invites);

@@ -607,7 +607,7 @@ body {
 /* ADD: whiteboard */
 .settingspage{
 	width: 260px;
-	height: 300px;
+	minheight: 300px;
 	background-color: white;
 	margin: 0 auto;
 	margin-top: 70px;
@@ -623,6 +623,16 @@ body {
 			color: #ddbc41;
 			margin-bottom: 20px;
 		}
+
+		h3 {
+			margin-top: 30px;
+			font-size: 14px;
+			display: block;
+		}
+	}
+
+	.search {
+		margin-top: 20px;
 	}
 
 	ul {
