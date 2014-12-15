@@ -29,8 +29,29 @@ module.exports = (function(){
 		this.$el.css('left', (event.pageX - this.offsetX) + "px");
 		this.$el.css('top', (event.pageY - this.offsetY) + "px");
 
-		if(this.$el.css('top').split('px')[0] < 40){
+		var top = this.$el.css('top').split('px')[0];
+		var left = this.$el.css('left').split('px')[0];
+		var width = this.$el.css('width').split('px')[0];
+		var height = this.$el.css('height').split('px')[0];
+		var right = parseInt(left) + parseInt(width);
+		var bottom = parseInt(top) + parseInt(height);
+		var windowWidth = window.innerWidth + 'px'
+		var windowHeight = window.innerHeight + 'px'
+
+		if(top < 40){
 			this.$el.css('top', '40px');
+		}
+
+		if(left < 0){
+			this.$el.css('left', '0px');
+		}
+
+		if(right > window.innerWidth){
+			this.$el.css('left', parseInt(windowWidth)-parseInt(width));
+		}
+
+		if(bottom > window.innerHeight){
+			this.$el.css('top', parseInt(windowHeight)-parseInt(height));
 		}
 	};
 
