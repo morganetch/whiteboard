@@ -22,8 +22,6 @@ module.exports = (function(){
 			
 			var resultDiv = document.querySelector('.result');
 			resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);
-			console.log(updatedResultDiv);
-			console.log(resultDiv);
 		}
 		req.open('get', this.searchForm.getAttribute('action') + '&q=' + this.searchInput.value, true);
 		req.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');

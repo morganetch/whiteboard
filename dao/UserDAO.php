@@ -11,10 +11,12 @@ class UserDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function searchUsers($search){
-		$sql = "SELECT * FROM `wb_users` WHERE `username` LIKE :username LIMIT 10";
+	public function searchUsers($search, $ownId, $board_id){
+		$sql = "SELECT * FROM `wb_users` WHERE `username` LIKE :username AND wb_users.id != :ownId AND `id` NOT IN (SELECT `user_id` FROM `wb_invites` WHERE board_id = :board_id) LIMIT 10";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':username', '%' . $search . '%');
+		$stmt->bindValue(":ownId", $ownId);
+		$stmt->bindValue(":board_id", $board_id);
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}

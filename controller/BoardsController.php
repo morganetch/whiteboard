@@ -227,7 +227,7 @@ class BoardsController extends Controller {
 
 		//live search
 		if(!empty($_GET['q'])){
-			$this->set('users', $this->userDAO->searchUsers($_GET['q']));
+			$this->set('users', $this->userDAO->searchUsers($_GET['q'], $_SESSION['user']['id'], $_GET['id']));
 		}
 		
 		if(!empty($_POST)){
