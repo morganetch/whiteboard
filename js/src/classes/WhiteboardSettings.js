@@ -2,7 +2,6 @@ module.exports = (function(){
 
 	function WhiteboardSettings(el) {
 		this.el = el;
-		console.log("settings");
 
 		this.searchForm = this.el.querySelector('form.search');
 		this.searchInput = this.searchForm.querySelector('input[type="search"]');

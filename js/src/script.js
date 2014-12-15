@@ -2,26 +2,16 @@
 
 
 	function init(){
-		var page = document.URL.split('?page=')[1].split('&')[0];
-		
-		switch(page){
-			case 'login':
-				console.log('loginpage');
-				break;
 
-			case 'register':
-				console.log('registerpage');
-				break;
+		var view = document.querySelector('.view');
+		var settings = document.querySelector('.settingspage');
 
-			case 'view':
-				var WhiteboardApplication = require('./classes/WhiteboardApplication');
-				new WhiteboardApplication(document.querySelector('.view'));
-				break;
-
-			case 'settings':
-				var WhiteboardSettings = require('./classes/WhiteboardSettings');
-				new WhiteboardSettings(document.querySelector('.settingspage'));
-				break;
+		if(view){
+			var WhiteboardApplication = require('./classes/WhiteboardApplication');
+			new WhiteboardApplication(view);
+		} else if(settings) {
+			var WhiteboardSettings = require('./classes/WhiteboardSettings');
+			new WhiteboardSettings(settings);
 		}
 	}
 

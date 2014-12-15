@@ -58,23 +58,16 @@ module.exports = (function(){
 	WhiteboardItem.prototype.mouseupHandler = function(event) {
 
 		var boardId = document.URL.split('id=')[1];
-		console.log(this.data.id);
 
 		$.post("index.php?page=save", { 
-				id: this.data.id,
-				x: this.$el.css('left'),
-				y: this.$el.css('top'),
-				z: this.$el.css('zIndex'),
-				boardId: boardId
-			})
-		  	.done(function(data) {
-		    console.log(data);
-		   	// if(data.result) {
-		   	// 	voorbeeldJSONGet();
-		   	// } else {
-
-		   	// }
-		  });
+			id: this.data.id,
+			x: this.$el.css('left'),
+			y: this.$el.css('top'),
+			z: this.$el.css('zIndex'),
+			boardId: boardId
+		})
+		.done(function(data) {
+		});
 
 		window.removeEventListener('mousemove', this._mousemoveHandler);
 		window.removeEventListener('mouseup', this._mouseupHandler);
