@@ -155,10 +155,11 @@ class BoardsController extends Controller {
 
 			if($this->permission()){
 				$board = $this->boardDAO->selectBoardById($_GET['id']);
+				$boardMaker = $this->userDAO->selectById($board['user_id']);
 				$invites = $this->inviteDAO->selectInvitesByBoardId($_GET['id']);
 
 				if(!empty($_GET['q'])){
-					$this->set('users', $this->userDAO->searchUsers($_GET['q'], $_SESSION['user']['id'], $_GET['id']));
+					$this->set('users', $this->userDAO->searchUsers($_GET['q'], $_SESSION['user']['id'], $board['user_id'] , $_GET['id']));
 				}
 
 				if(!empty($_POST)){
@@ -180,6 +181,7 @@ class BoardsController extends Controller {
 
 		$this->set('board', $board);
 		$this->set('invites', $invites);
+		$this->set('boardMaker', $boardMaker);
 	}
 
 	private function getValidationErrors($data, $type){

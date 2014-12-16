@@ -12,19 +12,22 @@
                 <div><input type="submit" name="action" value="Wijzigen" class="knop-reg"></div>
             </div>
         </form>
+        
+        <h3>Hoofdgebruiker</h3>
+        <p class="maker"><?php echo $boardMaker['username']; ?></p>
 
-            <h3>Gebruikers</h3>
-            <ul>
-                <?php
-                if($invites){
-                    foreach ($invites as $invite) {
-                        echo "<li><span>" . $invite['username'] . "</span></li>";
-                    }
-                } else {
-                    echo "<p>U bent de enige gebruiker</p>";
+        <h3>Andere gebruikers</h3>
+        <ul>
+            <?php
+            if($invites){
+                foreach ($invites as $invite) {
+                    echo "<li><span>" . $invite['username'] . "</span></li>";
                 }
-                ?>
-            </ul>
+            } else {
+                echo "<p>U bent de enige gebruiker</p>";
+            }
+            ?>
+        </ul>
         <form action="index.php?page=settings&id=<?php echo $_GET['id']; ?>" class="search" method="post">
             <div class="form-group<?php if(!empty($errors['user_id'])) echo ' has-error'; ?>">
                 <label for="inviteUser">Uitnodigen:</label>

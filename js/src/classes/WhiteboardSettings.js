@@ -16,7 +16,6 @@ module.exports = (function(){
 		req.onload = function() {
 			var result = document.createElement('div');
 			result.innerHTML = req.responseText;
-			console.log(result.innerHTML);
 			var updatedResultDiv = result.querySelector('.result');
 			
 			var resultDiv = document.querySelector('.result');
